@@ -10,6 +10,8 @@
   --mint: #46d986;
   --aqua: #11c7c7;
   --gray: #f0f4f9;
+  --deepblue: #002147;
+  --bluemint: #11C7C7;
 }
 * {
   padding: 0;
@@ -30,29 +32,29 @@ a {
   font-size: 14px;
   font-family: "Inter", sans-serif;
 }
-.location-container {
+header .location-container {
   display: flex;
   width: 20%;
   justify-content: space-around;
   align-content: center;
 }
-.location-container img {
+header .location-container img {
   width: 24px;
   height: 24px;
 }
-.mail-container {
+header .mail-container {
   display: flex;
   width: 15%;
   justify-content: space-around;
   align-items: center;
   margin-left: 5em;
 }
-.mail-container img {
+header .mail-container img {
   width: 24px;
   height: 24px;
 }
 
-.main-container {
+header > .main-container {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -60,7 +62,7 @@ a {
   height: 100px;
   background-color: var(--gray);
 }
-.logo-container {
+header .logo-container {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -134,4 +136,69 @@ a {
 }
 #name {
   color: black;
+}
+
+/* 김민유 코드 */
+
+.footer-container {
+  display: flex;
+  width: 100%;
+  height: 600px;
+  background-color: var(--deepblue);
+  align-content: flex-end;
+}
+
+.footer-container .main-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* logo */
+
+.footer-container .logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.footer-container .logo-container img {
+  width: 66px;
+  height: 52px;
+  margin-right: 20px;
+}
+
+.footer-container .logo-container a {
+  font-family: "Inter", sans-serif;
+  font-size: 28px;
+  color: white;
+}
+
+
+/* information */
+
+.footer-container .information-container {
+  height: auto;
+  display: block;
+  color: white;
+}
+
+footer .location-container,
+footer .mail-container,
+footer .phone-container {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+}
+
+footer img {
+  margin-right: 5px;
+}
+
+/* bottom navi */
+
+.navi-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
