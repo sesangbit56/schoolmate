@@ -3,6 +3,8 @@ var router = express.Router();
 const services = require("../services/render");
 const mysql = require("mysql");
 const sha256 = require("sha256");
+const url = require('url');
+var querystring = require('querystring');
 const db = mysql.createConnection({
   host : "localhost",
   user : "root",
@@ -20,24 +22,28 @@ router.get('/register', services.registerRoutes);
 
 /* register api */
 router.post("/register", function(req, res) {
-  const id = req.body.id || '';
-  const password = req.body.password || '';
-  const name = req.body.name || '';
-  const age = req.body.age || '';
+  try {
+    const id = req.body.id || '';
+    const password = req.body.password || '';
+    const name = req.body.name || '';
+    const age = req.body.age || '';
 
-  if(id.length == 0 || password.length == 0 || name.length == 0 || age.length == 0) {
-    return res.status(400).json({err: 'Incorrect info'});
-  }
-
-  var sql = `INSERT INTO users (id, name, password, age) VALUES("${id}", "${name}", "${sha256(password)}", ${parseInt(age)})`;
-  db.query(sql, function(err, rows, fields) {
-    if(err) {
-      console.log(err);
-      return res.status(400).json({'register': false});
-    } else {
-      return res.status(201).json({'register': true});
+    if(id.length == 0 || password.length == 0 || name.length == 0 || age.length == 0) {
+      return res.status(400).json({err: 'Incorrect info'});
     }
-  })
+
+    var sql = `INSERT INTO users (id, name, password, age) VALUES("${id}", "${name}", "${sha256(password)}", ${parseInt(age)})`;
+    db.query(sql, function(err, rows, fields) {
+      if(err) {
+        console.log(err);
+        return res.status(400).json({'register': false});
+      } else {
+        return res.status(201).json({'register': true});
+      }
+    })
+  } catch (e) {
+    return res.status(500).json({err : "Server error"});
+  }
 });
 
 router.post("/login", function (req, res) {
@@ -85,7 +91,53 @@ router.get("/login", function (req, res) {
   }
 });
 
+router.get("/user", function (req, res) {
+  try {
+  var parsedUrl = url.parse(req.url);
+  console.log(parsedUrl);
+  var parsedQuery = querystring.parse(parsedUrl.query, '&','=');
+  console.log(parsedQuery);
+  const id = parsedQuery.id;
+  console.log(id);
+
+  if(id.length == 0) {
+    return res.status(400).json({
+      err: "Invalid id"
+    })
+  }
+
+  console.log("went well");
+  
+  const sql = `SELECT * FROM users WHERE id = "${id}"`;
+  db.query(sql, function(err, rows, fields) {
+    if(err) {
+      console.log(err);
+      return res.status(400).json({
+        err: "Invalid id"
+      });
+    } else {
+      try {
+        // 현재 데이터베이스에서 받아온 값을 출력하지 못하는 중.
+        return res.status(200).json({
+          uid : rows.uid,
+          name: rows.name,
+          age: rows.age
+        });
+      } catch (e) {
+        return res.status(500).json({
+          err: "Server error"
+        });
+      }
+    }
+  });
+} catch (e) {
+  console.log(e);
+}
+});
 
 
 module.exports = router;
+
+//중복 id를 검사하는 api가 추가로 필요함.
+//register api에서 중복검사 부분을 추가해도 좋을 듯 함.
 
