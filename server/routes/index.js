@@ -4,6 +4,7 @@ const services = require("../services/render");
 const mysql = require("mysql");
 const sha256 = require("sha256");
 const url = require('url');
+const jwt = require('jsonwebtoken');
 var querystring = require('querystring');
 const db = mysql.createConnection({
   host : "localhost",
@@ -55,14 +56,13 @@ router.post("/register", function(req, res) {
         }
       }
     });
-
-    
   } catch (e) {
     return res.status(500).json({err : "Server error"});
   }
 });
 
 router.post("/login", function (req, res) {
+  console.log('got request!');
   const sql = `SELECT password FROM users WHERE id = "${req.body.id}"`;
   db.query(sql, (err, rows) => {
       if (err)
@@ -71,7 +71,7 @@ router.post("/login", function (req, res) {
           });
       else {
         try {
-          if (rows.pw === sha256(req.body.pw)) {
+          if (rows[0].password === sha256(req.body.pw)) {
             let token = jwt.sign({ name: req.body.id }, "ang");
             return res.status(200).json({
               login: true,
@@ -95,6 +95,7 @@ router.post("/login", function (req, res) {
 });
 
 router.get("/login", function (req, res) {
+  console.log("got authorization request!");
   try {
       return res.status(200).json({
           user: jwt.verify(req.headers.authorization.split(' ')[1], "ang")["name"]
@@ -145,6 +146,17 @@ router.get("/user", function (req, res) {
   }
 });
 
+router.post("/qna/question", function (req, res) {
+  try {
+    const title = req.body.title || '';
+    const writer_id = req.body.writer_id || '';
+    const category = req.body.category || '';
+    const timestamp = req.body.timestamp || '';
+    const main_text = req.body.main_text || '';
+
+  } catch(e) {
+    console.log(e);
+  }
+})
 
 module.exports = router;
-
