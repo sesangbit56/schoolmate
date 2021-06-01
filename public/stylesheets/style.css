@@ -11,7 +11,7 @@
   --aqua: #11c7c7;
   --gray: #f0f4f9;
   --deepblue: #002147;
-  --bluemint: #11C7C7;
+  --bluemint: #11c7c7;
 }
 * {
   padding: 0;
@@ -100,7 +100,7 @@ header .logo-container {
   background-color: var(--yellow);
 }
 .sign-box {
-  background-color: var(--gray);
+  background-color: var(--aqua);
   width: 115px;
   height: 44px;
   border-radius: 0.4em;
@@ -139,11 +139,10 @@ header .logo-container {
 }
 
 /* 김민유 코드 */
-
 .footer-container {
   display: flex;
   width: 100%;
-  height: 600px;
+  height: 50%;
   background-color: var(--deepblue);
   align-content: flex-end;
 }
@@ -174,7 +173,6 @@ header .logo-container {
   color: white;
 }
 
-
 /* information */
 
 .footer-container .information-container {
@@ -201,5 +199,9 @@ footer img {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: white;
 }
 
+.navi-content a {
+  color: white;
+}

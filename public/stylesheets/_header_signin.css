@@ -1,0 +1,79 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap");
+@font-face {
+  font-family: "NanumSquareRound";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff")
+    format("woff");
+  font-style: normal;
+}
+:root {
+  --yellow: #fdc800;
+  --mint: #46d986;
+  --aqua: #11c7c7;
+  --gray: #f0f4f9;
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+html,
+body {
+  height: 100%;
+}
+.main-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  background-color: #f0f4f9;
+  border-bottom: 1em solid var(--aqua);
+}
+.logo-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: 6em;
+  width: 20%;
+}
+.logo-container img {
+  width: 66px;
+  height: 52px;
+}
+.logo-container a {
+  font-family: "Inter", sans-serif;
+  font-size: 28px;
+}
+
+/* body */
+article {
+  height: 86%;
+  background-image: url("../images/signin_background.png");
+  background-size: cover;
+}
+.wrap {
+  width: 80%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.sign-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 8em;
+  right: 8em;
+  width: 30rem;
+  height: 35rem;
+  background-color: var(--gray);
+  border-radius: 3em;
+  box-shadow: 20px 20px 60px #acacac, -20px -20px 60px var(--gray);
+}
