@@ -153,7 +153,6 @@ router.post("/qna/question", function (req, res) {
     const title = req.body.title || "";
     const writer_id = req.body.writer_id || "";
     const category = req.body.category || "";
-    const timestamp = req.body.timestamp || "";
     const main_text = req.body.main_text || "";
 
     if (
@@ -164,14 +163,68 @@ router.post("/qna/question", function (req, res) {
     ) {
       return res.status(401).json({
         post: false,
-        err: "Invalid field value",
+        err: "Invalid field values",
       });
     }
 
-    const query = `SELECT * FROM questions `;
+    const query = `INSERT INTO questions (title, writer_id, category, timestamp, main_text) VALUES("${title}", "${writer_id}", "${category}", (now()), "${main_text}")`;
+    db.query(query, function (err, rows, fields) {
+      if (err) {
+        return res.status(500).json({
+          post: false,
+          err: err,
+        });
+      } else {
+        db.query(
+          `select pid from questions order by pid desc limit 1`,
+          function (err, rows, fields) {
+            if (err) {
+              return res.status(500).json({
+                post: false,
+                err: err,
+              });
+            } else {
+              return res.status(201).json({
+                post: true,
+                pid: rows[0].pid,
+              });
+            }
+          }
+        );
+      }
+    });
   } catch (e) {
     console.log(e);
   }
+});
+
+router.get("/qna/list", function (req, res) {
+  var parsedUrl = url.parse(req.url);
+  const page = querystring.parse(parsedUrl.query, "&", "=").page;
+
+  console.log(page);
+
+  if (!page.length) {
+    return res.status(401).json({
+      result: "",
+    });
+  }
+
+  const query = `SELECT * FROM questions ORDER BY pid DESC LIMIT ${
+    (page - 1) * 25
+  }, 25`;
+  db.query(query, function (err, rows, fields) {
+    if (err) {
+      return res.status(500).json({
+        result: "",
+        err: err,
+      });
+    } else {
+      return res.status(200).json({
+        result: rows,
+      });
+    }
+  });
 });
 
 module.exports = router;
