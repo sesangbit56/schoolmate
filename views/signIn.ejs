@@ -24,51 +24,40 @@
             <p>to your Schoolmate account</p>
           </div>
           <div class="credentials-container">
-            <div class="email-group">
-              <input
-                name="email"
-                type="email"
-                id="emailForSignIn"
-                class="txt-input email"
-              />
-              <label for="emailForSignIn"></label>
-            </div>
-            <div class="pwd-group">
-              <input
-                name="password"
-                type="password"
-                id="passwordForSignIn"
-                class="txt-iput password"
-              />
-              <label for="passwordForSignIn"></label>
-            </div>
-            <div class="connect-group">
-              <div class="OR-container"></div>
-              <div class="sso-main">
-                <div class="sso-container">
-                  <li class="sso-section">
-                    <span class="sso-icon"></span>
-                    <span class="sso-name">Google</span>
-                  </li>
-                  <li class="sso-section">
-                    <span class="sso-icon"></span>
-                    <span class="sso-name">Google</span>
-                  </li>
-                  <li class="sso-section">
-                    <span class="sso-icon"></span>
-                    <span class="sso-name">Google</span>
-                  </li>
-                </div>
+            <div class="input-cotainer">
+              <div class="email-group">
+                <input
+                  name="email"
+                  type="email"
+                  id="emailForSignIn"
+                  class="txt-input email"
+                  placeholder="Email"
+                />
+                <label for="emailForSignIn"></label>
+              </div>
+              <div class="pwd-group">
+                <input
+                  name="password"
+                  type="password"
+                  id="passwordForSignIn"
+                  class="txt-iput password"
+                  placeholder="Password"
+                />
+                <label for="passwordForSignIn"></label>
               </div>
             </div>
           </div>
           <footer class="footer-block">
-            <button type="submit" name="login" class="login-button">
-              sign In
-            </button>
+            <form action="#" method="post">
+              <button type="submit" name="login" class="login-button">
+                Sign In
+              </button>
+            </form>
             <div class="note">
-              <p>Don't have an account? <span>Sign up</span></p>
-              <p>Forgot <span>password?</span></p>
+              <p class="signUp-block">
+                Don't have an account? <span>Sign up</span>
+              </p>
+              <p class="forgot-block">Forgot <span>password?</span></p>
             </div>
           </footer>
         </div>

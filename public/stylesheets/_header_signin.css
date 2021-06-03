@@ -10,6 +10,7 @@
   --mint: #46d986;
   --aqua: #11c7c7;
   --gray: #f0f4f9;
+  --darkgray: rgb(199, 199, 199);
 }
 * {
   padding: 0;
@@ -19,6 +20,9 @@
 a {
   text-decoration: none;
   color: black;
+}
+ul {
+  list-style: none;
 }
 html,
 body {
@@ -76,4 +80,113 @@ article {
   background-color: var(--gray);
   border-radius: 3em;
   box-shadow: 20px 20px 60px #acacac, -20px -20px 60px var(--gray);
+}
+
+.signText-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 20%;
+}
+.signText-container h1 {
+  font-size: 2em;
+  font-family: adobe-gothic-std, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+/* credentials -container */
+.credentials-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40%;
+}
+.email-group,
+.pwd-group {
+  width: 100%;
+  height: 100%;
+}
+.email-group input,
+.pwd-group input {
+  border: none;
+  height: 100%;
+  width: 100%;
+  border-radius: 0.5em;
+  padding-left: 1em;
+  font-size: 1.4em;
+}
+.pwd-group input {
+  border-top: 1px solid var(--darkgray);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+input::placeholder {
+  font-size: 1em;
+  color: #acacac;
+}
+.input-cotainer {
+  width: 70%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  background-color: white;
+  border-radius: 0.5em;
+  border: 1px solid var(--darkgray);
+}
+
+/* footer block */
+.footer-block {
+  width: 100%;
+  height: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.footer-block form {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-button {
+  width: 50%;
+  height: 65%;
+  background-color: var(--aqua);
+  color: white;
+  border: none;
+  border-radius: 0.3em;
+  font-size: 1.5em;
+  font-family: adobe-gothic-std, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.note {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.signUp-block {
+  display: flex;
+  width: 70%;
+  justify-content: space-around;
+}
+.forgot-block {
+  display: flex;
+  width: 40%;
+  justify-content: space-around;
+}
+.note span {
+  color: var(--aqua);
+  cursor: pointer;
 }
