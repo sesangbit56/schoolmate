@@ -19,7 +19,7 @@ const bodyParser = require("body-parser");
 /* GET home page. */
 router.get("/", services.homeRoutes);
 
-router.get("/register", services.registerRoutes);
+router.get("/sign", services.signRoutes);
 
 /* register api */
 router.post("/register", function (req, res) {
@@ -155,6 +155,20 @@ router.post("/qna/question", function (req, res) {
     const category = req.body.category || "";
     const timestamp = req.body.timestamp || "";
     const main_text = req.body.main_text || "";
+
+    if (
+      !title.length ||
+      !writer_id.length ||
+      !category.length ||
+      !main_text.length
+    ) {
+      return res.status(401).json({
+        post: false,
+        err: "Invalid field value",
+      });
+    }
+
+    const query = `SELECT * FROM questions `;
   } catch (e) {
     console.log(e);
   }
