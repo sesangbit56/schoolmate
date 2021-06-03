@@ -5,6 +5,6 @@ exports.homeRoutes = (req, res) => {
   });
 };
 
-exports.registerRoutes = (req, res) => {
+exports.signRoutes = (req, res) => {
   res.render("signIn");
 };
