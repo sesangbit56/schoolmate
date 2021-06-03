@@ -1,38 +1,33 @@
-
-
 <head>
-    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#post').click(function () {
-                $.ajax({
-                    url: 'http://dtbeat.me:3000/register',
-                    type: 'post',
-                    contentType : 'application/json; charset=utf-8',
-                    dataType: 'text',
-                    data: JSON.stringify({
-                        id: $('#id').val(),
-                        name: $('#name').val(),
-                        password: $('#password').val(),
-                        age: $('#age').val()
-                    }),
-                    success: function (data) {
-                        $('#queryCheck').val(data);
-                    }
-                });
-            });
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("#post").click(function () {
+        $.ajax({
+          url: "http://dtbeat.me:3000/register",
+          type: "post",
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          data: {
+            id: $("#id").val(),
+            name: $("#name").val(),
+            password: $("#password").val(),
+            age: $("#age").val(),
+          },
+          success: function (data) {
+            $("#queryCheck").val(data);
+          },
         });
-    </script>
+      });
+    });
+  </script>
 </head>
 <body>
-    This is register page
-    <input type="text" id="id">
-    <input type="text" id="name">
-    <input type="text" id="password">
-    <input type="text" id="age">
-    <button id="post">wow</button>
-    <p id="queryCheck">
-
-    </p>
+  This is register page
+  <input type="text" id="id" />
+  <input type="text" id="name" />
+  <input type="text" id="password" />
+  <input type="text" id="age" />
+  <button id="post">wow</button>
+  <p id="queryCheck"></p>
 </body>
-
