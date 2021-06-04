@@ -23,37 +23,45 @@ router.get("/sign", services.signRoutes);
 
 /* register api */
 router.post("/register", function (req, res) {
+  console.log("got /register request!");
   try {
     const id = req.body.id || "";
     const password = req.body.password || "";
     const name = req.body.name || "";
     const age = req.body.age || "";
+    console.log(
+      `id : ${id}, password : ${password}, name : ${name}, age : ${age}`
+    );
 
     if (!id.length || !password.length || !name.length || !age.length) {
       return res.status(400).json({ err: "Incorrect info" });
     }
 
-    console.log("done");
+    console.log("checking id redendant....");
+
     var sql = `SELECT id FROM users WHERE id = "${id}"`;
     db.query(sql, function (err, rows, fields) {
       if (err) {
         console.log(err);
         return res.status(400).json({ register: false });
       } else {
-        console.log(rows);
+        console.log(`redundanted id is : ${rows}`);
         if (rows.length) {
+          console.log(`Redundanted id found!`);
           return res.status(400).json({ id: "Redundanted id" });
         } else {
-          console.log("Not Jungbok!");
+          console.log("Valid id confirmed!");
           db.query(
             `INSERT INTO users (id, name, password, age) VALUES("${id}", "${name}", "${sha256(
               password
             )}", ${parseInt(age)})`,
             function (err, rows, fields) {
+              console.log("inserting data into users database.....");
               if (err) {
                 console.log(err);
                 return res.status(400).json({ register: false });
               } else {
+                console.log("SUCCESS!");
                 return res.status(201).json({ register: true });
               }
             }
@@ -67,7 +75,7 @@ router.post("/register", function (req, res) {
 });
 
 router.post("/login", function (req, res) {
-  console.log("got request!");
+  console.log("got /login post request!");
   const sql = `SELECT password FROM users WHERE id = "${req.body.id}"`;
   db.query(sql, (err, rows) => {
     if (err)
@@ -111,6 +119,7 @@ router.get("/login", function (req, res) {
 });
 
 router.get("/user", function (req, res) {
+  console.log("got /user request!");
   try {
     var parsedUrl = url.parse(req.url);
     const id = querystring.parse(parsedUrl.query, "&", "=").id;
@@ -149,6 +158,7 @@ router.get("/user", function (req, res) {
 });
 
 router.post("/qna/question", function (req, res) {
+  console.log("got /qna/question request!");
   try {
     const title = req.body.title || "";
     const writer_id = req.body.writer_id || "";
@@ -199,6 +209,7 @@ router.post("/qna/question", function (req, res) {
 });
 
 router.get("/qna/list", function (req, res) {
+  console.log("got /qna/list request!");
   var parsedUrl = url.parse(req.url);
   const page = querystring.parse(parsedUrl.query, "&", "=").page;
 
