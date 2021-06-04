@@ -227,4 +227,8 @@ router.get("/qna/list", function (req, res) {
   });
 });
 
+router.get("/test", function (req, res) {
+  console.log("test");
+});
+
 module.exports = router;
