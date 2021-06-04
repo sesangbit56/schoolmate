@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Schoolmate</title>
+    <link rel="stylesheet" href="/stylesheets/_header_signin.css" />
+  </head>
+  <body>
+    <header id="header">
+      <div class="main-container">
+        <div class="logo-container">
+          <img src="/images/icon-logo.png" alt="" />
+          <a href="#">Schoolmate</a>
+        </div>
+      </div>
+    </header>
+    <article>
+      <div class="sign-container signIn-visiable">
+        <div class="wrap">
+          <div class="signText-container margin-bottom">
+            <h1>Sign in</h1>
+            <p>to your Schoolmate account</p>
+          </div>
+          <div class="credentials-container">
+            <div class="input-cotainer">
+              <div class="email-group">
+                <input
+                  name="email"
+                  type="email"
+                  class="txt-input email"
+                  placeholder="Email"
+                  onchange=""
+                />
+                <label for="emailForSignIn"></label>
+              </div>
+              <div class="pwd-group">
+                <input
+                  name="password"
+                  type="password"
+                  class="txt-iput password"
+                  placeholder="Password"
+                />
+                <label for="passwordForSignIn"></label>
+              </div>
+            </div>
+          </div>
+          <footer class="footer-block">
+            <form action="/login" method="post">
+              <button
+                type="submit"
+                name="login"
+                class="login-button"
+                onclick="postSignIn()"
+              >
+                Sign In
+              </button>
+            </form>
+            <div class="note">
+              <p class="signUp-block">
+                Don't have an account?<span id="signUp">Sign up</span>
+              </p>
+              <p class="forgot-block">Forgot<span>password?</span></p>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div class="sign-container signUp-visiable">
+        <div class="wrap">
+          <div class="signText-container margin-bottom">
+            <h1>Create account</h1>
+          </div>
+          <div class="credentials-container signUp">
+            <div class="input-cotainer signUp-input">
+              <div class="email-group">
+                <input
+                  name="email"
+                  type="email"
+                  class="txt-input email"
+                  placeholder="Email"
+                />
+                <label for="emailForSignIn"></label>
+              </div>
+              <div class="pwd-group">
+                <input
+                  name="password"
+                  type="password"
+                  class="txt-iput password"
+                  placeholder="Password"
+                />
+                <label for="passwordForSignIn"></label>
+              </div>
+            </div>
+            <div class="input2-container">
+              <div class="name-group">
+                <input
+                  name="name"
+                  type="text"
+                  id="nameForSignUp"
+                  class="txt-iput name"
+                  placeholder="이름"
+                />
+                <label for="nameForSignUp"></label>
+              </div>
+              <div class="age-group">
+                <input
+                  name="age"
+                  type="number"
+                  id="ageForSignUp"
+                  class="txt-iput age"
+                  placeholder="나이"
+                />
+                <label for="ageForSignUp"></label>
+              </div>
+            </div>
+          </div>
+          <footer class="footer-block">
+            <form action="/login" method="post">
+              <button type="submit" name="login" class="login-button">
+                Sign In
+              </button>
+            </form>
+            <div class="note signUp-note">
+              <p class="policy-block">
+                By clicking "Create account" you agree to the
+                <span>Terms <span id="and">and</span> Privacy Policy</span>
+              </p>
+              <p class="signIn-block">
+                Already have an account? <span id="signIn">Sign in</span>
+              </p>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </article>
+    <script src="/javascript/signin.js"></script>
+  </body>
+</html>
