@@ -227,7 +227,11 @@ router.get("/qna/list", function (req, res) {
   });
 });
 
-router.get("/test", function (req, res) {
+router.delete("/qna/detail/:pid", function (req, res) {
+  console.log("test");
+});
+
+router.put("/qna/detail/:pid", function (res, req) {
   console.log("test");
 });
 
