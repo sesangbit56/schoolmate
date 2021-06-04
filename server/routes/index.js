@@ -79,26 +79,22 @@ router.post("/login", function (req, res) {
   const sql = `SELECT password FROM users WHERE id = "${req.body.id}"`;
   db.query(sql, (err, rows) => {
     if (err)
-      return res.status(400).json({
+      return res.status(500).json({
+        login: false,
         result: "sql error",
+        err: err,
       });
     else {
-      try {
-        if (rows[0].password === sha256(req.body.pw)) {
-          let token = jwt.sign({ name: req.body.id }, "ang");
-          return res.status(200).json({
-            login: true,
-            token: token,
-          });
-        } else {
-          return res.status(404).json({
-            result: "invalid id",
-          });
-        }
-      } catch (e) {
-        console.log(e);
-        return res.status(400).json({
+      if (rows[0].password === sha256(req.body.password)) {
+        let token = jwt.sign({ name: req.body.id }, "ang");
+        return res.status(200).json({
+          login: true,
+          token: token,
+        });
+      } else {
+        return res.status(404).json({
           login: false,
+          result: "invalid password",
         });
       }
     }
