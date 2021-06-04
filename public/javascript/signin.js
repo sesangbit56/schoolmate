@@ -1,21 +1,35 @@
+function asdf() {
+  const email = document.querySelector(".email").value;
+  console.log(email);
+}
+
 //Post
-function postSignIn() {
+const loginBtn = document.querySelector(".login-button");
+
+loginBtn.addEventListener("click", () => {
   const email = document.querySelector(".email").value;
   const pwd = document.querySelector(".password").value;
-  (async () => {
-    const rawResponse = await fetch("/login", {
-      method: "POST",
-      headers: {
-        contentType: "application/json; charset=utf-8",
-        dataType: "text",
-      },
-      body: JSON.stringify({ email: email, password: pwd }),
-    });
-    const content = await rawResponse.json();
+  console.log(email);
+  console.log(pwd);
+  var url = "/login";
+  var data = { email: email, password: pwd };
 
-    console.log(content);
-  })();
-}
+  fetch(url, {
+    method: "POST", // or 'PUT'
+    body: JSON.stringify(data), // data can be `string` or {object}!
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      datatype: "text",
+    },
+  })
+    .then((res) => res.json())
+    .then((response) => {
+      if (JSON.stringify(response).login) {
+        // localstorage, 리다이렉션
+      }
+    })
+    .catch((error) => console.error("Error:", error));
+});
 
 //Dom event
 const signUp = document.querySelector("#signUp");

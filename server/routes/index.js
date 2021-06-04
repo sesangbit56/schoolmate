@@ -68,6 +68,7 @@ router.post("/register", function (req, res) {
 
 router.post("/login", function (req, res) {
   console.log("got request!");
+  console.log(req.body.email);
   const sql = `SELECT password FROM users WHERE id = "${req.body.id}"`;
   db.query(sql, (err, rows) => {
     if (err)
