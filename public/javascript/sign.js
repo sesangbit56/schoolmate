@@ -18,8 +18,17 @@ loginBtn.addEventListener("click", () => {
     .then((response) => {
       if (response.login) {
         // localstorage, 리다이렉션
+        fetch("/", {
+          method: "POST",
+          body: JSON.stringify(response),
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            datatype: "text",
+          },
+        });
         console.log("sucess");
         localStorage.setItem("sessionId", response.token);
+        location.href = "/";
       } else {
         console.log("fail");
       }

@@ -18,6 +18,7 @@ const bodyParser = require("body-parser");
 
 /* GET home page. */
 router.get("/", services.homeRoutes);
+router.post("/", services.homeRoutes);
 
 router.get("/sign", services.signRoutes);
 

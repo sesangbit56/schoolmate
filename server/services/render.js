@@ -1,6 +1,7 @@
 exports.homeRoutes = (req, res) => {
+  console.log(req);
   res.render("index", {
-    status: false,
+    status: req.body.login,
     name: "장정인",
   });
 };
