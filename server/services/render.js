@@ -3,6 +3,7 @@ exports.homeRoutes = (req, res) => {
   const status = req.session.login;
   const name = req.session.name;
   console.log(name);
+  console.log(status);
   req.session.login = undefined;
   req.session.name = undefined;
   res.render("index", {
