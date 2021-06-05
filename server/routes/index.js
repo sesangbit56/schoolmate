@@ -228,7 +228,41 @@ router.get("/qna/list", function (req, res) {
 });
 
 router.delete("/qna/detail/:pid", function (req, res) {
-  console.log("test");
+  console.log(req.params.pid);
+  const pid = req.params.pid;
+
+  db.query(
+    `select * from questions where pid=${pid}`,
+    function (err, rows, fields) {
+      if (err) {
+        return res.status(500).json({
+          delete: false,
+          err: err,
+        });
+      } else {
+        if (!rows.length) {
+          return res.status(401).json({
+            delete: false,
+            err: "post isn't exist",
+          });
+        } else {
+          const query = `delete from questions where pid=${pid}`;
+          db.query(query, function (err, rows, fields) {
+            if (err) {
+              return res.status(500).json({
+                delete: false,
+                err: err,
+              });
+            } else {
+              return res.status(200).json({
+                delete: true,
+              });
+            }
+          });
+        }
+      }
+    }
+  );
 });
 
 router.put("/qna/detail/:pid", function (res, req) {
