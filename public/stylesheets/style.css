@@ -35,23 +35,25 @@ a {
 header .location-container {
   display: flex;
   width: 20%;
-  justify-content: space-around;
+  justify-content: center;
   align-content: center;
 }
 header .location-container img {
   width: 24px;
   height: 24px;
+  margin-right: 1em;
 }
 header .mail-container {
   display: flex;
-  width: 15%;
-  justify-content: space-around;
+  width: 20%;
+  justify-content: center;
   align-items: center;
   margin-left: 5em;
 }
 header .mail-container img {
   width: 24px;
   height: 24px;
+  margin-right: 1em;
 }
 
 header > .main-container {
@@ -64,13 +66,14 @@ header > .main-container {
 }
 header .logo-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  width: 18%;
+  width: 20%;
 }
 .logo-container img {
   width: 66px;
   height: 52px;
+  margin-right: 1em;
 }
 .logo-container a {
   font-family: "Inter", sans-serif;
@@ -141,7 +144,7 @@ header .logo-container {
   cursor: pointer;
 }
 
-/* 김민유 코드 */
+/* footer*/
 .footer-container {
   display: flex;
   width: 100%;

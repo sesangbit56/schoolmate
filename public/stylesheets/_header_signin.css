@@ -39,7 +39,7 @@ body {
 }
 .logo-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   margin-left: 6em;
   width: 20%;
@@ -47,6 +47,7 @@ body {
 .logo-container img {
   width: 66px;
   height: 52px;
+  margin-right: 1em;
 }
 .logo-container a {
   font-family: "Inter", sans-serif;
