@@ -18,9 +18,16 @@ const bodyParser = require("body-parser");
 
 /* GET home page. */
 router.get("/", services.homeRoutes);
-router.post("/", services.homeRoutes);
 
 router.get("/sign", services.signRoutes);
+
+router.post("/signIn", (req, res) => {
+  console.log(req.body);
+  req.session.login = true;
+  req.session.name = req.body.name;
+
+  res.redirect("/");
+});
 
 /* register api */
 router.post("/register", function (req, res) {
@@ -77,7 +84,7 @@ router.post("/login", function (req, res) {
   console.log("got request!");
   console.log(req.body.email);
   console.log(req.body.password);
-  const sql = `SELECT password FROM users WHERE id = "${req.body.email}"`;
+  const sql = `SELECT password, name FROM users WHERE id = "${req.body.email}"`;
   db.query(sql, (err, rows) => {
     if (err)
       return res.status(500).json({
@@ -92,6 +99,7 @@ router.post("/login", function (req, res) {
           let token = jwt.sign({ name: req.body.email }, "ang");
           return res.status(200).json({
             login: true,
+            name: rows[0].name,
             token: token,
           });
         } else {

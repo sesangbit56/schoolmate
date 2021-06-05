@@ -1,8 +1,13 @@
 exports.homeRoutes = (req, res) => {
-  console.log(req);
+  console.log(req.session);
+  const status = req.session.login;
+  const name = req.session.name;
+  console.log(name);
+  req.session.login = undefined;
+  req.session.name = undefined;
   res.render("index", {
-    status: req.body.login,
-    name: "장정인",
+    status: status,
+    name: name,
   });
 };
 

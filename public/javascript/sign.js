@@ -18,7 +18,8 @@ loginBtn.addEventListener("click", () => {
     .then((response) => {
       if (response.login) {
         // localstorage, 리다이렉션
-        fetch("/", {
+        console.log(response);
+        fetch("/signIn", {
           method: "POST",
           body: JSON.stringify(response),
           headers: {

@@ -8,11 +8,20 @@ const path = require("path");
 
 const indexRouter = require("./server/routes/index");
 const { create } = require("domain");
+const session = require("express-session");
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
+
+app.use(
+  session({
+    secret: "test",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 app.use(
   "/stylesheets",
