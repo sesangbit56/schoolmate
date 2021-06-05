@@ -18,6 +18,7 @@ const bodyParser = require("body-parser");
 
 /* GET home page. */
 router.get("/", services.homeRoutes);
+router.post("/", services.homeRoutes);
 
 router.get("/sign", services.signRoutes);
 
@@ -37,8 +38,7 @@ router.post("/register", function (req, res) {
       return res.status(400).json({ err: "Incorrect info" });
     }
 
-    console.log("checking email redendant....");
-
+    console.log("done");
     var sql = `SELECT id FROM users WHERE id = "${email}"`;
     db.query(sql, function (err, rows, fields) {
       if (err) {
@@ -47,8 +47,7 @@ router.post("/register", function (req, res) {
       } else {
         console.log(`redundanted email is : ${rows}`);
         if (rows.length) {
-          console.log(`Redundanted email found!`);
-          return res.status(400).json({ id: "Redundanted email" });
+          return res.status(400).json({ email: "Redundanted id" });
         } else {
           console.log("Valid email confirmed!");
           db.query(
@@ -75,7 +74,9 @@ router.post("/register", function (req, res) {
 });
 
 router.post("/login", function (req, res) {
-  console.log("got /login post request!");
+  console.log("got request!");
+  console.log(req.body.email);
+  console.log(req.body.password);
   const sql = `SELECT password FROM users WHERE id = "${req.body.email}"`;
   db.query(sql, (err, rows) => {
     if (err)
@@ -85,14 +86,22 @@ router.post("/login", function (req, res) {
         err: err,
       });
     else {
-      if (rows[0].password === sha256(req.body.password)) {
-        let token = jwt.sign({ name: req.body.email }, "ang");
-        return res.status(200).json({
-          login: true,
-          token: token,
-        });
-      } else {
-        return res.status(404).json({
+      try {
+        console.log(rows);
+        if (rows[0].password === sha256(req.body.password)) {
+          let token = jwt.sign({ name: req.body.email }, "ang");
+          return res.status(200).json({
+            login: true,
+            token: token,
+          });
+        } else {
+          return res.status(404).json({
+            result: "invalid id",
+          });
+        }
+      } catch (e) {
+        console.log(e);
+        return res.status(400).json({
           login: false,
           result: "invalid password",
         });
