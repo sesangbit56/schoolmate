@@ -125,6 +125,7 @@ router.get("/login", function (req, res) {
       user: jwt.verify(req.headers.authorization.split(" ")[1], "ang")["name"],
     });
   } catch (e) {
+    console.log(e);
     return res.status(401).json({
       login: false,
     });

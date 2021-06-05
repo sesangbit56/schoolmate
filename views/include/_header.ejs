@@ -26,7 +26,7 @@
         </div>
       </nav>
       <div class="main-container">
-        <div class="logo-container">
+        <div class="logo-container" onclick="authorization()">
           <img src="images/icon-logo.png" alt="" />
           <a href="#">Schoolmate</a>
         </div>
@@ -43,10 +43,7 @@
           <a href="#" class="transition hover-class">
             <p>학습 플래너</p>
           </a>
-          <% if(status === false) {%><a href="/sign" class="sign-box"
-            ><p id="signIn">Sign in</p></a
-          ><%} else if(status=== true) {%>
-          <!-- profile -->
+          <% if(status=== true) {%><!-- profile -->
           <div class="aco-container">
             <div class="profile-container">
               <div class="profile-img"></div>
@@ -72,10 +69,13 @@
             </div>
           </div>
           <!-- profile -->
+          <%} else {%>
+          <a href="/sign" class="sign-box"><p id="signIn">Sign in</p></a>
           <%}%>
         </nav>
       </div>
     </header>
     <script src="/javascript/profile.js"></script>
+    <script src="/javascript/tokenAuth.js"></script>
   </body>
 </html>
