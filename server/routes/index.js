@@ -24,17 +24,17 @@ router.get("/sign", services.signRoutes);
 /* register api */
 router.post("/register", function (req, res) {
   try {
-    const id = req.body.id || "";
+    const email = req.body.email || "";
     const password = req.body.password || "";
     const name = req.body.name || "";
     const age = req.body.age || "";
 
-    if (!id.length || !password.length || !name.length || !age.length) {
+    if (!email.length || !password.length || !name.length || !age.length) {
       return res.status(400).json({ err: "Incorrect info" });
     }
 
     console.log("done");
-    var sql = `SELECT id FROM users WHERE id = "${id}"`;
+    var sql = `SELECT id FROM users WHERE id = "${email}"`;
     db.query(sql, function (err, rows, fields) {
       if (err) {
         console.log(err);
@@ -42,11 +42,11 @@ router.post("/register", function (req, res) {
       } else {
         console.log(rows);
         if (rows.length) {
-          return res.status(400).json({ id: "Redundanted id" });
+          return res.status(400).json({ email: "Redundanted id" });
         } else {
           console.log("Not Jungbok!");
           db.query(
-            `INSERT INTO users (id, name, password, age) VALUES("${id}", "${name}", "${sha256(
+            `INSERT INTO users (id, name, password, age) VALUES("${email}", "${name}", "${sha256(
               password
             )}", ${parseInt(age)})`,
             function (err, rows, fields) {
@@ -69,7 +69,8 @@ router.post("/register", function (req, res) {
 router.post("/login", function (req, res) {
   console.log("got request!");
   console.log(req.body.email);
-  const sql = `SELECT password FROM users WHERE id = "${req.body.id}"`;
+  console.log(req.body.password);
+  const sql = `SELECT password FROM users WHERE id = "${req.body.email}"`;
   db.query(sql, (err, rows) => {
     if (err)
       return res.status(400).json({
@@ -77,8 +78,9 @@ router.post("/login", function (req, res) {
       });
     else {
       try {
-        if (rows[0].password === sha256(req.body.pw)) {
-          let token = jwt.sign({ name: req.body.id }, "ang");
+        console.log(rows);
+        if (rows[0].password === sha256(req.body.password)) {
+          let token = jwt.sign({ name: req.body.email }, "ang");
           return res.status(200).json({
             login: true,
             token: token,

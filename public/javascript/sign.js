@@ -16,7 +16,6 @@ loginBtn.addEventListener("click", () => {
   })
     .then((res) => res.json())
     .then((response) => {
-      console.log(response.login);
       if (response.login) {
         // localstorage, 리다이렉션
         console.log("sucess");
