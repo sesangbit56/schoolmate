@@ -25,34 +25,34 @@ router.get("/sign", services.signRoutes);
 router.post("/register", function (req, res) {
   console.log("got /register request!");
   try {
-    const id = req.body.id || "";
+    const email = req.body.email || "";
     const password = req.body.password || "";
     const name = req.body.name || "";
     const age = req.body.age || "";
     console.log(
-      `id : ${id}, password : ${password}, name : ${name}, age : ${age}`
+      `email : ${email}, password : ${password}, name : ${name}, age : ${age}`
     );
 
-    if (!id.length || !password.length || !name.length || !age.length) {
+    if (!email.length || !password.length || !name.length || !age.length) {
       return res.status(400).json({ err: "Incorrect info" });
     }
 
-    console.log("checking id redendant....");
+    console.log("checking email redendant....");
 
-    var sql = `SELECT id FROM users WHERE id = "${id}"`;
+    var sql = `SELECT id FROM users WHERE id = "${email}"`;
     db.query(sql, function (err, rows, fields) {
       if (err) {
         console.log(err);
         return res.status(400).json({ register: false });
       } else {
-        console.log(`redundanted id is : ${rows}`);
+        console.log(`redundanted email is : ${rows}`);
         if (rows.length) {
-          console.log(`Redundanted id found!`);
-          return res.status(400).json({ id: "Redundanted id" });
+          console.log(`Redundanted email found!`);
+          return res.status(400).json({ id: "Redundanted email" });
         } else {
-          console.log("Valid id confirmed!");
+          console.log("Valid email confirmed!");
           db.query(
-            `INSERT INTO users (id, name, password, age) VALUES("${id}", "${name}", "${sha256(
+            `INSERT INTO users (id, name, password, age) VALUES("${email}", "${name}", "${sha256(
               password
             )}", ${parseInt(age)})`,
             function (err, rows, fields) {
@@ -76,7 +76,7 @@ router.post("/register", function (req, res) {
 
 router.post("/login", function (req, res) {
   console.log("got /login post request!");
-  const sql = `SELECT password FROM users WHERE id = "${req.body.id}"`;
+  const sql = `SELECT password FROM users WHERE id = "${req.body.email}"`;
   db.query(sql, (err, rows) => {
     if (err)
       return res.status(500).json({
@@ -86,7 +86,7 @@ router.post("/login", function (req, res) {
       });
     else {
       if (rows[0].password === sha256(req.body.password)) {
-        let token = jwt.sign({ name: req.body.id }, "ang");
+        let token = jwt.sign({ name: req.body.email }, "ang");
         return res.status(200).json({
           login: true,
           token: token,
@@ -118,15 +118,15 @@ router.get("/user", function (req, res) {
   console.log("got /user request!");
   try {
     var parsedUrl = url.parse(req.url);
-    const id = querystring.parse(parsedUrl.query, "&", "=").id;
+    const email = querystring.parse(parsedUrl.query, "&", "=").email;
 
-    if (id.length == 0) {
+    if (email.length == 0) {
       return res.status(400).json({
         err: "Invalid id",
       });
     }
 
-    const sql = `SELECT * FROM users WHERE id = "${id}"`;
+    const sql = `SELECT * FROM users WHERE id = "${email}"`;
     db.query(sql, function (err, rows, fields) {
       if (err) {
         console.log(err);
