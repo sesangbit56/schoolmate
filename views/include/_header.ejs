@@ -47,18 +47,35 @@
             ><p id="signIn">Sign in</p></a
           ><%} else if(status=== true) {%>
           <!-- profile -->
-          <div class="profile-container">
-            <div class="profile-img"></div>
-            <div class="welcome-container">
-              <p>안녕하세요.</p>
-              <p><span id="name"><%= name %> </span>학생</p>
+          <div class="aco-container">
+            <div class="profile-container">
+              <div class="profile-img"></div>
+              <div class="welcome-container">
+                <p>안녕하세요.</p>
+                <p><span id="name"><%= name %> </span>학생</p>
+              </div>
+              <i class="fas fa-bars aco-click"></i>
             </div>
-            <i class="fas fa-bars"></i>
+            <div class="panel-container">
+              <div class="alarm">
+                <i></i>
+                <a href="#">알람</a>
+              </div>
+              <div class="alarm">
+                <i></i>
+                <a href="#">개인정보 수정</a>
+              </div>
+              <div class="alarm">
+                <i></i>
+                <a href="#">My page</a>
+              </div>
+            </div>
           </div>
           <!-- profile -->
           <%}%>
         </nav>
       </div>
     </header>
+    <script src="/javascript/profile.js"></script>
   </body>
 </html>

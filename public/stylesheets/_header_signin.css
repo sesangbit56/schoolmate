@@ -158,9 +158,11 @@ input::placeholder {
   justify-content: center;
   align-items: center;
 }
-.login-button {
+.login-button,
+.signUp-button {
+  cursor: pointer;
   width: 80%;
-  height: 65%;
+  height: 40%;
   background-color: var(--aqua);
   color: white;
   border: none;

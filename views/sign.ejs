@@ -31,7 +31,6 @@
                   type="email"
                   class="txt-input email"
                   placeholder="Email"
-                  onchange=""
                 />
                 <label for="emailForSignIn"></label>
               </div>
@@ -69,7 +68,7 @@
                 <input
                   name="email"
                   type="email"
-                  class="txt-input email"
+                  class="txt-input signUpEmail"
                   placeholder="Email"
                 />
                 <label for="emailForSignIn"></label>
@@ -78,7 +77,7 @@
                 <input
                   name="password"
                   type="password"
-                  class="txt-iput password"
+                  class="txt-iput signUpPassword"
                   placeholder="Password"
                 />
                 <label for="passwordForSignIn"></label>
@@ -108,11 +107,7 @@
             </div>
           </div>
           <footer class="footer-block">
-            <form action="/login" method="post">
-              <button type="submit" name="login" class="login-button">
-                Sign In
-              </button>
-            </form>
+            <button class="signUp-button">Create account</button>
             <div class="note signUp-note">
               <p class="policy-block">
                 By clicking "Create account" you agree to the
@@ -126,6 +121,6 @@
         </div>
       </div>
     </article>
-    <script src="/javascript/signin.js"></script>
+    <script src="/javascript/sign.js"></script>
   </body>
 </html>

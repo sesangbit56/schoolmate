@@ -119,7 +119,7 @@ header .logo-container {
   align-items: center;
   border-radius: 1em;
   background-color: var(--mint);
-  width: 30%;
+  width: 100%;
   height: 70%;
 }
 .profile-img {
@@ -136,6 +136,9 @@ header .logo-container {
 }
 #name {
   color: black;
+}
+.aco-click {
+  cursor: pointer;
 }
 
 /* 김민유 코드 */
@@ -204,4 +207,28 @@ footer img {
 
 .navi-content a {
   color: white;
+}
+
+/* accordion css */
+.aco-container {
+  width: 25%;
+}
+.panel-container {
+  width: 100%;
+  background-color: white;
+  border-radius: 0.5em;
+  color: #262626;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  opacity: 0;
+  height: auto;
+  max-height: 0;
+  overflow: hidden;
+  padding: 0px 10px;
+}
+.panel-container.active {
+  padding: 15px 10px 10px 10px;
+  opacity: 1;
+  height: auto;
+  max-height: 500px;
 }
