@@ -84,7 +84,7 @@ router.post("/login", function (req, res) {
   console.log("got request!");
   console.log(req.body.email);
   console.log(req.body.password);
-  const sql = `SELECT password, name FROM users WHERE id = "${req.body.email}"`;
+  const sql = `SELECT password, name, uid FROM users WHERE id = "${req.body.email}"`;
   db.query(sql, (err, rows) => {
     if (err)
       return res.status(500).json({
@@ -96,7 +96,7 @@ router.post("/login", function (req, res) {
       try {
         console.log(rows);
         if (rows[0].password === sha256(req.body.password)) {
-          let token = jwt.sign({ name: req.body.email }, "ang");
+          let token = jwt.sign({ uid: rows[0].uid }, "ang");
           return res.status(200).json({
             login: true,
             name: rows[0].name,
@@ -120,16 +120,31 @@ router.post("/login", function (req, res) {
 
 router.get("/login", function (req, res) {
   console.log("got authorization request!");
-  try {
-    return res.status(200).json({
-      user: jwt.verify(req.headers.authorization.split(" ")[0], "ang")["name"],
-    });
-  } catch (e) {
-    console.log(e);
-    return res.status(401).json({
-      login: false,
-    });
-  }
+  const decodedToken = jwt.verify(
+    req.headers.authorization.split(" ")[0],
+    "ang"
+  )["uid"];
+  const query = `select * from users where uid = ${decodedToken}`;
+
+  db.query(query, (err, rows, fields) => {
+    if (err) {
+      console.log(err);
+      return res.status(401).json({
+        login: false,
+      });
+    } else {
+      if (!rows.length) {
+        return res.status(401).json({
+          login: false,
+        });
+      } else {
+        return res.status(200).json({
+          login: true,
+          name: rows[0].name,
+        });
+      }
+    }
+  });
 });
 
 router.get("/user", function (req, res) {
