@@ -122,7 +122,7 @@ router.get("/login", function (req, res) {
   console.log("got authorization request!");
   try {
     return res.status(200).json({
-      user: jwt.verify(req.headers.authorization.split(" ")[1], "ang")["name"],
+      user: jwt.verify(req.headers.authorization.split(" ")[0], "ang")["name"],
     });
   } catch (e) {
     console.log(e);
