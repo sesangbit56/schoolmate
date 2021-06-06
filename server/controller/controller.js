@@ -102,6 +102,25 @@ exports.loginPostControll = (req, res) => {
   });
 };
 
+exports.logoutControll = (req, res) => {
+  console.log("logout POST====================================");
+  if (!req.cookies.sessionId) {
+    console.log("   sessionId Empty...");
+    return res.status(401).json({
+      logout: false,
+      msg: "sessionId is not exist",
+    });
+  } else {
+    const sessionId = req.cookies.sessionId;
+    console.log("   sessionId : " + sessionId);
+    res.clearCookie("sessionId");
+    res.status(200).json({
+      logout: true,
+      msg: "logout SUCCESS",
+    });
+  }
+};
+
 exports.userGetControll = (req, res) => {
   console.log("got /user request!");
   try {
