@@ -140,6 +140,9 @@ header .logo-container {
 #name {
   color: black;
 }
+#logout {
+  cursor: pointer;
+}
 .aco-click {
   cursor: pointer;
 }
@@ -218,6 +221,8 @@ footer img {
   width: 25%;
 }
 .panel-container {
+  position: relative;
+  z-index: 1;
   width: 100%;
   background-color: white;
   border-radius: 0.5em;
