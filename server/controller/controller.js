@@ -294,7 +294,7 @@ exports.questionPutControll = (req, res) => {
     });
   } else {
     //글에 값이 있다면
-    const query = `update questions set main_text="${fixed_text} where pid=${pid}"`;
+    const query = `update questions set main_text="${fixed_text}" where pid=${pid}`;
     db.query(query, (err, rows, fields) => {
       if (err) {
         console.log(err);
