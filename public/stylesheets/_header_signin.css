@@ -39,7 +39,7 @@ body {
 }
 .logo-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   margin-left: 6em;
   width: 20%;
@@ -47,6 +47,7 @@ body {
 .logo-container img {
   width: 66px;
   height: 52px;
+  margin-right: 1em;
 }
 .logo-container a {
   font-family: "Inter", sans-serif;
@@ -88,7 +89,7 @@ article {
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  height: 20%;
+  height: 10%;
 }
 .signText-container h1 {
   font-size: 2em;
@@ -125,11 +126,13 @@ article {
   border-top-right-radius: 0;
 }
 input::placeholder {
+  font-family: sans-serif;
+  font-weight: 100;
   font-size: 1em;
   color: #acacac;
 }
 .input-cotainer {
-  width: 70%;
+  width: 80%;
   height: 70%;
   display: flex;
   flex-direction: column;
@@ -143,7 +146,7 @@ input::placeholder {
 /* footer block */
 .footer-block {
   width: 100%;
-  height: 35%;
+  height: 40%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -156,9 +159,11 @@ input::placeholder {
   justify-content: center;
   align-items: center;
 }
-.login-button {
-  width: 50%;
-  height: 65%;
+.login-button,
+.signUp-button {
+  cursor: pointer;
+  width: 80%;
+  height: 40%;
   background-color: var(--aqua);
   color: white;
   border: none;
@@ -172,9 +177,10 @@ input::placeholder {
 .note {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
+  height: 30%;
 }
 .signUp-block {
   display: flex;
@@ -189,4 +195,71 @@ input::placeholder {
 .note span {
   color: var(--aqua);
   cursor: pointer;
+}
+
+/* signUp CSS */
+.margin-bottom {
+  margin-bottom: 2em;
+}
+.input2-container {
+  display: flex;
+  width: 80%;
+  height: 30%;
+  justify-content: space-between;
+  align-items: center;
+}
+.name-group,
+.age-group {
+  width: 45%;
+  height: 70%;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* footer */
+.policy-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.name-group input,
+.age-group input {
+  border: none;
+  height: 100%;
+  width: 100%;
+  border: 1px solid var(--darkgray);
+  border-radius: 0.4em;
+  padding-left: 1em;
+  font-size: 1em;
+}
+#and {
+  color: black;
+  cursor: default;
+}
+.signUp {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 40%;
+}
+.signUp-input {
+  height: 60%;
+}
+.signUp-note {
+  height: 50%;
+}
+/* sign js event */
+.signUp-visiable {
+  display: none;
+}
+
+.signIn-visiable {
+  display: flex;
 }
