@@ -53,6 +53,10 @@ signUpBtn.addEventListener("click", () => {
     .catch((error) => console.error("Error:", error));
 });
 
+//logout
+const logoutBtn = document.getElementById("logout");
+console.log(logoutBtn);
+
 //Dom event
 const signUp = document.querySelector("#signUp");
 const signIn = document.querySelector("#signIn");
