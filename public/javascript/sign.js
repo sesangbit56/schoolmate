@@ -45,9 +45,11 @@ signUpBtn.addEventListener("click", () => {
   })
     .then((res) => res.json())
     .then((response) => {
-      console.log(JSON.stringify(response));
-      if (JSON.stringify(response).login) {
-        // localstorage, 리다이렉션
+      if (response.register) {
+        alert("회원가입 성공 !");
+        location.href = "/sign";
+      } else if (!response.register) {
+        alert("제대로 된 값을 입력해주세요 !");
       }
     })
     .catch((error) => console.error("Error:", error));

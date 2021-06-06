@@ -12,18 +12,19 @@ acoBtn.addEventListener("click", () => {
 //logout
 const logoutBtn = document.getElementById("logout");
 logoutBtn.addEventListener("click", () => {
-  fetch(
-    "/logout",
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-      },
-    }
-      .then((res) => res.json())
-      .then((response) => {
-        console.log(response);
-        location.href = "/";
-      })
-  );
+  fetch("/logout", {
+    method: "GET",
+
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      datatype: "text",
+    },
+  })
+    .then((res) => {
+      res.json();
+    })
+    .then((response) => {
+      console.log(response);
+      location.href = "/";
+    });
 });

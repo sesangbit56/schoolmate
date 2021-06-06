@@ -103,7 +103,7 @@ exports.loginPostControll = (req, res) => {
 };
 
 exports.logoutControll = (req, res) => {
-  console.log("logout POST====================================");
+  console.log("logout GET====================================");
   if (!req.cookies.sessionId) {
     console.log("   sessionId Empty...");
     return res.status(401).json({
