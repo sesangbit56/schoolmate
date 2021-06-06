@@ -240,3 +240,74 @@ exports.qnaListGetControll = (req, res) => {
     }
   });
 };
+
+exports.questionDeleteControll = (req, res) => {
+  console.log(req.params.pid);
+  const pid = req.params.pid;
+
+  db.query(
+    `select * from questions where pid=${pid}`,
+    function (err, rows, fields) {
+      if (err) {
+        return res.status(500).json({
+          delete: false,
+          err: err,
+        });
+      } else {
+        if (!rows.length) {
+          return res.status(401).json({
+            delete: false,
+            err: "post isn't exist",
+          });
+        } else {
+          const query = `delete from questions where pid=${pid}`;
+          db.query(query, function (err, rows, fields) {
+            if (err) {
+              return res.status(500).json({
+                delete: false,
+                err: err,
+              });
+            } else {
+              return res.status(200).json({
+                delete: true,
+              });
+            }
+          });
+        }
+      }
+    }
+  );
+};
+
+exports.questionPutControll = (req, res) => {
+  console.log("got");
+  console.log(req.params.pid);
+  console.log(req.body.fixed_text);
+  const pid = req.params.pid;
+  const fixed_text = req.body.fixed_text;
+
+  if (!fixed_text.length) {
+    console.log("empty main_text");
+    return res.status(401).json({
+      adjust: false,
+      msg: "Empty text!",
+    });
+  } else {
+    //글에 값이 있다면
+    const query = `update questions set main_text="${fixed_text}" where pid=${pid}`;
+    db.query(query, (err, rows, fields) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          adjust: false,
+          msg: err,
+        });
+      } else {
+        return res.status(201).json({
+          adjust: true,
+          msg: "adjust SUCCESS",
+        });
+      }
+    });
+  }
+};
