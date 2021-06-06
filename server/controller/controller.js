@@ -1,3 +1,18 @@
+const jwt = require("jsonwebtoken");
+const querystring = require("querystring");
+
+const bodyParser = require("body-parser");
+const sha256 = require("sha256");
+const url = require("url");
+const mysql = require("mysql");
+const db = mysql.createConnection({
+  host: "158.247.222.53",
+  user: "dev",
+  password: "13975",
+  database: "schoolmate",
+});
+db.connect();
+
 exports.registerControll = (req, res) => {
   console.log("got /register request!");
   try {
@@ -54,6 +69,7 @@ exports.loginPostControll = (req, res) => {
   console.log(req.body.password);
   const sql = `SELECT password, name, uid FROM users WHERE id = "${req.body.email}"`;
   db.query(sql, (err, rows) => {
+    console.log(rows);
     if (err)
       return res.status(500).json({
         login: false,
@@ -117,7 +133,7 @@ exports.loginGetControll = (req, res) => {
   });
 };
 
-exports.userGetControll = (res, res) => {
+exports.userGetControll = (req, res) => {
   console.log("got /user request!");
   try {
     var parsedUrl = url.parse(req.url);
