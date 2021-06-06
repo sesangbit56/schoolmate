@@ -64,73 +64,61 @@ exports.registerControll = (req, res) => {
 };
 
 exports.loginPostControll = (req, res) => {
-  console.log("got request!");
-  console.log(req.body.email);
-  console.log(req.body.password);
+  console.log("login POST====================================");
+  console.log(`   got email : ${req.body.email}`);
+  console.log(`   got password : ${req.body.password}`);
   const sql = `SELECT password, name, uid FROM users WHERE id = "${req.body.email}"`;
   db.query(sql, (err, rows) => {
-    console.log(rows);
-    if (err)
+    console.log(`   query result : ` + rows);
+    if (err) {
+      console.log(err);
       return res.status(500).json({
         login: false,
-        result: "sql error",
-        err: err,
+        msg: "sql error",
       });
-    else {
-      try {
-        console.log(rows);
-        if (rows[0].password === sha256(req.body.password)) {
-          let token = jwt.sign({ uid: rows[0].uid }, "ang");
-          return res.status(200).json({
-            login: true,
-            token: token,
-          });
-        } else {
-          return res.status(404).json({
-            result: "invalid id",
-          });
-        }
-      } catch (e) {
-        console.log(e);
+    } else {
+      if (!rows.length) {
         return res.status(400).json({
           login: false,
-          result: "invalid password",
+          msg: "Invalid Id",
+        });
+      } else if (rows[0].password === sha256(req.body.password)) {
+        let token = jwt.sign({ uid: rows[0].uid }, "ang");
+        res.cookie("sessionId", token, {
+          maxAge: 36000000,
+        });
+        res.status(200).json({
+          login: true,
+          msg: "login SUCCESS",
+        });
+      } else {
+        res.clearCookie("sessionId");
+        return res.status(404).json({
+          login: false,
+          msg: "Invalid password",
         });
       }
     }
   });
 };
 
-exports.loginGetControll = (req, res) => {
-  console.log("got authorization request!");
-  const decodedToken = jwt.verify(
-    req.headers.authorization.split(" ")[0],
-    "ang"
-  )["uid"];
-  const query = `select * from users where uid = ${decodedToken}`;
-
-  db.query(query, (err, rows, fields) => {
-    console.log(rows);
-    if (err) {
-      console.log(err);
-      return res.status(401).json({
-        login: false,
-      });
-    } else {
-      if (!rows.length) {
-        // req.session.login = false;
-        // req.session.name = "";
-        return res.status(401).json({
-          login: false,
-        });
-      } else {
-        return res.status(200).json({
-          login: true,
-          name: rows[0].name,
-        });
-      }
-    }
-  });
+exports.logoutControll = (req, res) => {
+  console.log("logout GET====================================");
+  if (!req.cookies.sessionId) {
+    console.log("   sessionId Empty...");
+    return res.status(401).json({
+      logout: false,
+      msg: "sessionId is not exist",
+    });
+  } else {
+    const sessionId = req.cookies.sessionId;
+    console.log("   sessionId : " + sessionId);
+    res.clearCookie("sessionId");
+    res.status(200).json({
+      logout: true,
+      msg: "logout SUCCESS",
+    });
+  }
 };
 
 exports.userGetControll = (req, res) => {

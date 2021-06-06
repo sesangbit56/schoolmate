@@ -17,18 +17,6 @@ loginBtn.addEventListener("click", () => {
     .then((res) => res.json())
     .then((response) => {
       if (response.login) {
-        // localstorage, 리다이렉션
-        console.log(response);
-        fetch("/signIn", {
-          method: "POST",
-          body: JSON.stringify(response),
-          headers: {
-            "Content-Type": "application/json; charset=utf-8",
-            datatype: "text",
-          },
-        });
-        console.log("sucess");
-        localStorage.setItem("sessionId", response.token);
         location.href = "/";
       } else {
         alert("가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
@@ -57,9 +45,11 @@ signUpBtn.addEventListener("click", () => {
   })
     .then((res) => res.json())
     .then((response) => {
-      console.log(JSON.stringify(response));
-      if (JSON.stringify(response).login) {
-        // localstorage, 리다이렉션
+      if (response.register) {
+        alert("회원가입 성공 !");
+        location.href = "/sign";
+      } else if (!response.register) {
+        alert("제대로 된 값을 입력해주세요 !");
       }
     })
     .catch((error) => console.error("Error:", error));

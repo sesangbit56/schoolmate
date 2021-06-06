@@ -2,6 +2,7 @@ const express = require("express");
 const createError = require("http-errors");
 const app = express();
 const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 
 const http = require("http");
 const path = require("path");
@@ -34,6 +35,8 @@ app.use(
 );
 // app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieParser());
 
 app.use("/", indexRouter);
 
