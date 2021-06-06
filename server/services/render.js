@@ -14,7 +14,10 @@ exports.homeRoutes = (req, res) => {
   console.log("   SessionId checking...");
   if (!req.cookies.sessionId) {
     console.log("   !!!!SessionId is empty!!!!");
-    res.render("index");
+    res.render("index", {
+      status: false,
+      name: "",
+    });
   } else {
     try {
       var decodedToken = jwt.verify(req.cookies.sessionId, "ang")["uid"];
@@ -22,7 +25,10 @@ exports.homeRoutes = (req, res) => {
       //when sessionId is not valid
       console.log(err);
       res.clearCookie("sessionId");
-      res.render("index");
+      res.render("index", {
+        status: false,
+        name: "",
+      });
     }
     console.log(decodedToken);
     const query = `select * from users where uid = ${decodedToken}`;
@@ -31,12 +37,18 @@ exports.homeRoutes = (req, res) => {
       if (err) {
         console.log(err);
         res.clearCookie("sessionId");
-        res.render("index");
+        res.render("index", {
+          status: false,
+          name: "",
+        });
       } else {
         if (!rows.length) {
           console.log("   !!!!SessionId is Invalid!!!!");
           res.clearCookie("sessionId");
-          res.render("index");
+          res.render("index", {
+            status: false,
+            name: "",
+          });
         } else {
           console.log("   SessionId Confirmed!");
           res.render("index", {
