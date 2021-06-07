@@ -1,0 +1,44 @@
+<!-- include header -->
+<%- include('include/_header') %>
+<!-- include header -->
+
+<div class="findQna-Wrap">
+  <div class="findQna-container">
+    <img src="/images/qna-people.png" alt="" id="findPeopleImg" />
+    <div class="findText-container">
+      <h2>무엇이든 찾아보세요 !</h2>
+      <div class="search-wrap">
+        <div class="search">
+          <input
+            type="text"
+            class="searchTerm"
+            placeholder="What are you looking for?"
+          />
+          <button type="submit" class="searchButton">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+      <div class="newQna-box">
+        <img src="/images/plusBtn.svg" alt="" />
+        <h3>새로운 질문 올리기</h3>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="qnaLists-wrap">
+  <div class="qnaLists-container">
+    <h1>Question</h1>
+    <div class="qnaLists-group">
+      <%= qna %>
+      <div class="question-container">
+        <p class="category">[<%= name %>]</p>
+        <p>Q: 주격 관계 대명사와 목적격 관계 대명사 어떻게 구분하나요??</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- include footer -->
+<%- include('include/_footer') %>
+<!-- include footer -->
