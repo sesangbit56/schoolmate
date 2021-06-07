@@ -1,133 +1,135 @@
 <!-- include header -->
 <%- include('include/_header') %>
 <!-- include header -->
-<div class="mainContent-wrap">
-  <div class="mainContent-container">
-    <div class="mainText-container">
-      <h2 id="Become">Become English Master</h2>
-      <div class="learnText">
-        <p>Learn English Online</p>
-        <p>Build up your skills.</p>
+<div id="all-wrap">
+  <div class="mainContent-wrap">
+    <div class="mainContent-container">
+      <div class="mainText-container">
+        <h2 id="Become">Become English Master</h2>
+        <div class="learnText">
+          <p>Learn English Online</p>
+          <p>Build up your skills.</p>
+        </div>
+        <div class="newQuesBox">
+          <p>새 질문 올리기</p>
+        </div>
       </div>
-      <div class="newQuesBox">
-        <p>새 질문 올리기</p>
-      </div>
-    </div>
-    <img src="/images/Analytic.png" alt="image" />
-  </div>
-</div>
-<div class="banner-wrap">
-  <div class="banner-container">
-    <div class="success-group">
-      <img src="/images/success.png" alt="" />
-      <p class="bannerText">아직 <strong>아무도 풀지 못한</strong> 문제</p>
-    </div>
-    <div class="time-group">
-      <div class="realtime-container">
-        <p>11</p>
-        :
-        <p>02</p>
-        :
-        <p>45</p>
-        :
-        <p>21</p>
-      </div>
-      <div class="timeText-container">
-        <p>Days</p>
-        <p>Hours</p>
-        <p>Minutes</p>
-        <p>Seconds</p>
-      </div>
+      <img src="/images/Analytic.png" alt="image" />
     </div>
   </div>
-</div>
-<div class="question-wrap">
-  <h2>Top featured Question</h2>
-  <div class="grid-container">
-    <div class="grid-item first">
-      <div class="image-box"></div>
-      <div class="info-box">
-        <div class="infoWrap">
-          <p class="title"><%- questions[0].title %></p>
-          <p class="userName"><%- questions[0].writer_id %></p>
-        </div>
+  <div class="banner-wrap">
+    <div class="banner-container">
+      <div class="success-group">
+        <img src="/images/success.png" alt="" />
+        <p class="bannerText">아직 <strong>아무도 풀지 못한</strong> 문제</p>
       </div>
-    </div>
-    <div class="grid-item second">
-      <div class="image-box"></div>
-      <div class="info-box">
-        <div class="infoWrap">
-          <p class="title"><%- questions[1].title %></p>
-          <p class="userName"><%- questions[1].writer_id %></p>
+      <div class="time-group">
+        <div class="realtime-container">
+          <p>11</p>
+          :
+          <p>02</p>
+          :
+          <p>45</p>
+          :
+          <p>21</p>
         </div>
-      </div>
-    </div>
-    <div class="grid-item third">
-      <div class="image-box"></div>
-      <div class="info-box">
-        <div class="infoWrap">
-          <p class="title"><%- questions[2].title %></p>
-          <p class="userName"><%- questions[2].writer_id %></p>
-        </div>
-      </div>
-    </div>
-    <div class="grid-item fourth">
-      <div class="image-box"></div>
-      <div class="info-box">
-        <div class="infoWrap">
-          <p class="title"><%- questions[3].title %></p>
-          <p class="userName"><%- questions[3].writer_id %></p>
-        </div>
-      </div>
-    </div>
-    <div class="grid-item fifth">
-      <div class="image-box"></div>
-      <div class="info-box">
-        <div class="infoWrap">
-          <p class="title"><%- questions[4].title %></p>
-          <p class="userName"><%- questions[4].writer_id %></p>
-        </div>
-      </div>
-    </div>
-    <div class="grid-item sixth">
-      <div class="image-box"></div>
-      <div class="info-box">
-        <div class="infoWrap">
-          <p class="title"><%- questions[5].title %></p>
-          <p class="userName"><%- questions[5].writer_id %></p>
-        </div>
-      </div>
-    </div>
-    <div class="grid-item seventh">
-      <div class="image-box"></div>
-      <div class="info-box">
-        <div class="infoWrap">
-          <p class="title"><%- questions[6].title %></p>
-          <p class="userName"><%- questions[6].writer_id %></p>
-        </div>
-      </div>
-    </div>
-    <div class="grid-item eighth">
-      <div class="image-box"></div>
-      <div class="info-box">
-        <div class="infoWrap">
-          <p class="title"><%- questions[7].title %></p>
-          <p class="userName"><%- questions[7].writer_id %></p>
-        </div>
-      </div>
-    </div>
-    <div class="grid-item nineth">
-      <div class="image-box"></div>
-      <div class="info-box">
-        <div class="infoWrap">
-          <p class="title"><%- questions[8].title %></p>
-          <p class="userName"><%- questions[8].writer_id %></p>
+        <div class="timeText-container">
+          <p>Days</p>
+          <p>Hours</p>
+          <p>Minutes</p>
+          <p>Seconds</p>
         </div>
       </div>
     </div>
   </div>
+  <div class="question-wrap">
+    <h2>Top featured Question</h2>
+    <div class="grid-container">
+      <div class="grid-item first">
+        <div class="image-box"></div>
+        <div class="info-box">
+          <div class="infoWrap">
+            <p class="title"><%- questions[0].title %></p>
+            <p class="userName"><%- questions[0].writer_id %></p>
+          </div>
+        </div>
+      </div>
+      <div class="grid-item second">
+        <div class="image-box"></div>
+        <div class="info-box">
+          <div class="infoWrap">
+            <p class="title"><%- questions[1].title %></p>
+            <p class="userName"><%- questions[1].writer_id %></p>
+          </div>
+        </div>
+      </div>
+      <div class="grid-item third">
+        <div class="image-box"></div>
+        <div class="info-box">
+          <div class="infoWrap">
+            <p class="title"><%- questions[2].title %></p>
+            <p class="userName"><%- questions[2].writer_id %></p>
+          </div>
+        </div>
+      </div>
+      <div class="grid-item fourth">
+        <div class="image-box"></div>
+        <div class="info-box">
+          <div class="infoWrap">
+            <p class="title"><%- questions[3].title %></p>
+            <p class="userName"><%- questions[3].writer_id %></p>
+          </div>
+        </div>
+      </div>
+      <div class="grid-item fifth">
+        <div class="image-box"></div>
+        <div class="info-box">
+          <div class="infoWrap">
+            <p class="title"><%- questions[4].title %></p>
+            <p class="userName"><%- questions[4].writer_id %></p>
+          </div>
+        </div>
+      </div>
+      <div class="grid-item sixth">
+        <div class="image-box"></div>
+        <div class="info-box">
+          <div class="infoWrap">
+            <p class="title"><%- questions[5].title %></p>
+            <p class="userName"><%- questions[5].writer_id %></p>
+          </div>
+        </div>
+      </div>
+      <div class="grid-item seventh">
+        <div class="image-box"></div>
+        <div class="info-box">
+          <div class="infoWrap">
+            <p class="title"><%- questions[6].title %></p>
+            <p class="userName"><%- questions[6].writer_id %></p>
+          </div>
+        </div>
+      </div>
+      <div class="grid-item eighth">
+        <div class="image-box"></div>
+        <div class="info-box">
+          <div class="infoWrap">
+            <p class="title"><%- questions[7].title %></p>
+            <p class="userName"><%- questions[7].writer_id %></p>
+          </div>
+        </div>
+      </div>
+      <div class="grid-item nineth">
+        <div class="image-box"></div>
+        <div class="info-box">
+          <div class="infoWrap">
+            <p class="title"><%- questions[8].title %></p>
+            <p class="userName"><%- questions[8].writer_id %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ranking-wrap"></div>
 </div>
-<div class="ranking-wrap"></div>
 <!-- include footer -->
 <%- include('include/_footer') %>
 <!-- include footer -->
