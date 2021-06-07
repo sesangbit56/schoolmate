@@ -35,26 +35,28 @@ a {
 header .location-container {
   display: flex;
   width: 20%;
-  justify-content: space-around;
+  justify-content: center;
   align-content: center;
 }
 header .location-container img {
   width: 24px;
   height: 24px;
+  margin-right: 1em;
 }
 header .mail-container {
   display: flex;
-  width: 15%;
-  justify-content: space-around;
+  width: 20%;
+  justify-content: center;
   align-items: center;
   margin-left: 5em;
 }
 header .mail-container img {
   width: 24px;
   height: 24px;
+  margin-right: 1em;
 }
 
-header > .main-container {
+header > .mainNav-container {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -64,13 +66,14 @@ header > .main-container {
 }
 header .logo-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  width: 18%;
+  width: 20%;
 }
 .logo-container img {
   width: 66px;
   height: 52px;
+  margin-right: 1em;
 }
 .logo-container a {
   font-family: "Inter", sans-serif;
@@ -119,7 +122,7 @@ header .logo-container {
   align-items: center;
   border-radius: 1em;
   background-color: var(--mint);
-  width: 30%;
+  width: 100%;
   height: 70%;
 }
 .profile-img {
@@ -137,8 +140,14 @@ header .logo-container {
 #name {
   color: black;
 }
+#logout {
+  cursor: pointer;
+}
+.aco-click {
+  cursor: pointer;
+}
 
-/* 김민유 코드 */
+/* footer*/
 .footer-container {
   display: flex;
   width: 100%;
@@ -147,7 +156,8 @@ header .logo-container {
   align-content: flex-end;
 }
 
-.footer-container .main-container {
+.footer-container,
+.mainNav-container {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -204,4 +214,44 @@ footer img {
 
 .navi-content a {
   color: white;
+}
+
+/* accordion css */
+.aco-container {
+  width: 25%;
+}
+.panel-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  background-color: white;
+  border-radius: 0.5em;
+  color: #262626;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  opacity: 0;
+  height: auto;
+  max-height: 0;
+  overflow: hidden;
+  padding: 0px 10px;
+}
+.panel-container.active {
+  padding: 15px 10px 10px 10px;
+  opacity: 1;
+  height: auto;
+  max-height: 500px;
+}
+
+/* mainPage css */
+.mainContent-wrap {
+  width: 100%;
+  height: 600px;
+  display: flex;
+  align-items: flex-start;
+}
+.mainContent-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

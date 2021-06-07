@@ -11,6 +11,7 @@
       integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
       crossorigin="anonymous"
     />
+    <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
   </head>
 
   <body>
@@ -25,7 +26,7 @@
           <p>jungin7612@dimigo.hs.kr</p>
         </div>
       </nav>
-      <div class="main-container">
+      <div class="mainNav-container">
         <div class="logo-container">
           <img src="images/icon-logo.png" alt="" />
           <a href="#">Schoolmate</a>
@@ -43,22 +44,42 @@
           <a href="#" class="transition hover-class">
             <p>학습 플래너</p>
           </a>
-          <% if(status === false) {%><a href="#" class="sign-box"
-            ><p id="signIn">Sign in</p></a
-          ><%} else if(status=== true) {%>
-          <!-- profile -->
-          <div class="profile-container">
-            <div class="profile-img"></div>
-            <div class="welcome-container">
-              <p>안녕하세요.</p>
-              <p><span id="name"><%= name %> </span>학생</p>
+          <% if(status=== true) {%><!-- profile -->
+          <div class="aco-container">
+            <div class="profile-container">
+              <div class="profile-img"></div>
+              <div class="welcome-container">
+                <p>안녕하세요.</p>
+                <p><span id="name"><%= name %> </span>학생</p>
+              </div>
+              <i class="fas fa-bars aco-click"></i>
             </div>
-            <i class="fas fa-bars"></i>
+            <div class="panel-container">
+              <div class="alarm">
+                <i></i>
+                <a href="#">알람</a>
+              </div>
+              <div class="alarm">
+                <i></i>
+                <a href="#">개인정보 수정</a>
+              </div>
+              <div class="alarm">
+                <i></i>
+                <a href="#">My page</a>
+              </div>
+              <div class="logout">
+                <i></i>
+                <a href="/" id="logout">Logout</a>
+              </div>
+            </div>
           </div>
           <!-- profile -->
+          <%} else {%>
+          <a href="/sign" class="sign-box"><p id="signIn">Sign in</p></a>
           <%}%>
         </nav>
       </div>
     </header>
+    <script src="/javascript/index.js"></script>
   </body>
 </html>
