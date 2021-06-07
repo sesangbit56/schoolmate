@@ -98,6 +98,7 @@ exports.qnaRoutes = (req, res) => {
         res.render("qna", {
           status: false,
           name: "",
+          qna: "",
         });
       } else {
         questions = JSON.parse(JSON.stringify(rows));
@@ -108,6 +109,7 @@ exports.qnaRoutes = (req, res) => {
             status: false,
             name: "",
             questions: questions,
+            qna: "",
           });
         } else {
           try {
@@ -120,6 +122,7 @@ exports.qnaRoutes = (req, res) => {
               status: false,
               name: "",
               questions: questions,
+              qna: "",
             });
           }
           console.log(decodedToken);
@@ -133,6 +136,7 @@ exports.qnaRoutes = (req, res) => {
                 status: false,
                 name: "",
                 questions: questions,
+                qna: "",
               });
             } else {
               if (!rows.length) {
@@ -142,13 +146,24 @@ exports.qnaRoutes = (req, res) => {
                   status: false,
                   name: "",
                   questions: questions,
+                  qna: "",
                 });
               } else {
+                const category = "문법";
+                const title = "asdklfjasdkl";
+                const pid = "1";
+
+                const qnaList = ` <a class="question-container" href="/qna/detail/${pid}">
+                <p class="category">[${category}]</p>
+                <p class="qnaTitle">Q: ${title}</p>
+              </a>
+              `;
                 console.log("   SessionId Confirmed!");
                 res.render("qna", {
                   status: true,
                   name: rows[0].name,
                   questions: questions,
+                  qnaList: qnaList,
                 });
               }
             }
