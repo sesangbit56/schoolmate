@@ -545,7 +545,7 @@ footer img {
 /* qnalist CSS */
 .qnaLists-wrap {
   width: 100%;
-  height: 100em;
+  height: 120em;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -553,13 +553,23 @@ footer img {
 .qnaLists-container {
   width: 70%;
   height: 80%;
+  padding-top: 5vh;
+}
+.qnaLists-container h1 {
+  padding-bottom: 3vh;
+  font-size: 2.5em;
 }
 .question-container {
   display: flex;
   padding: 0.6vw 0 0.6vw 0;
   width: 100%;
   border-bottom: 1px solid var(--darkgray);
+  font-family: "NanumSquareRound";
+  font-weight: bold;
+  font-size: 1.4em;
+  align-items: center;
 }
 .category {
   margin-right: 1vw;
+  color: var(--yellow);
 }
