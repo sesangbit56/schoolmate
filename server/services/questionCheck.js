@@ -51,28 +51,30 @@ exports.getQnaPageList = (list, search) => {
     getQnaCount(search).then((count) => {
       let qnaPageList = ``;
       if (!search) {
-        for (let i = list - 6 < 1 ? 1 : list - 5; i < list; i++) {
-          qnaPageList += `<div><a href="/qna?list=${i}">${i}</a></div>`;
+        for (let i = list - 5 < 1 ? 1 : list - 4; i < list; i++) {
+          qnaPageList += `<a href="/qna?list=${i}"><div class="qnaPageList-container"><p class="qnaPageList-box">${i}</p></div></a>`;
         }
+        qnaPageList += `<a href="/qna?list=${list}"><div class="selected-page"><p class="qnaPageList-box">${list}</p></div></a>`;
         for (
-          let i = list;
+          let i = parseInt(list) + 1;
           i <= Math.ceil(count / 25) && i < parseInt(list) + 5;
           i++
         ) {
-          qnaPageList += `<div><a href="/qna?list=${i}">${i}</a></div>`;
+          qnaPageList += `<a href="/qna?list=${i}"><div class="qnaPageList-container"><p class="qnaPageList-box">${i}</p></div></a>`;
         }
         console.log(qnaPageList);
         resolve(qnaPageList);
       }
-      for (let i = list - 6 < 1 ? 1 : list - 5; i < list; i++) {
-        qnaPageList += `<div><a href="/qna?search=${search}&list=${i}">${i}</a></div>`;
+      for (let i = list - 5 < 1 ? 1 : list - 4; i < list; i++) {
+        qnaPageList += `<a href="/qna?search=${search}&list=${i}"><div class="qnaPageList-container"><p class="qnaPageList-box">${i}</p></div></a>`;
       }
+      qnaPageList += `<a href="/qna?search=${search}&list=${list}"><div class"selected-page"><p class="qnaPageList-box">${list}</p></div></a>`;
       for (
-        let i = list;
+        let i = parseInt(list) + 1;
         i <= Math.ceil(count / 25) && i < parseInt(list) + 5;
         i++
       ) {
-        qnaPageList += `<div><a href="/qna?search=${search}&list=${i}">${i}</a></div>`;
+        qnaPageList += `<a href="/qna?search=${search}&list=${i}"><div class="qnaPageList-container"><p class="qnaPageList-box">${i}</p></div></a>`;
       }
       console.log(qnaPageList);
       resolve(qnaPageList);
