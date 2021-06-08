@@ -107,6 +107,7 @@ header .logo-container {
 .transition {
   width: 100%;
   border-radius: 0.5em;
+  transition-duration: 0.2s;
   display: flex;
   justify-content: center;
   align-items: center;
