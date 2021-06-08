@@ -12,6 +12,26 @@ acoBtn.addEventListener("click", () => {
   }
 });
 
+const mainNavContentList = document.getElementsByClassName("main-nav-contents");
+let checkarray = new Array();
+for (let i = 0; i < 4; i++) {
+  mainNavContentList[i].addEventListener("click", () => {
+    checkarray[i] = i;
+    const mainNav = document.querySelector(".main-nav");
+    mainNav.classList.add("selected");
+    mainNavContentList[i].classList.add("selected");
+    localStorage.setItem("checkNav", checkarray[i]);
+  });
+}
+for (let i = 0; i < 4; i++) {
+  if (localStorage.getItem("checkNav") == i) {
+    const mainNav = document.querySelector(".main-nav");
+    mainNav.classList.add("selected");
+    mainNavContentList[i].classList.add("selected");
+  }
+}
+console.log(localStorage.getItem("checkNav"));
+
 //logout
 const logoutBtn = document.getElementById("logout");
 logoutBtn.addEventListener("click", () => {

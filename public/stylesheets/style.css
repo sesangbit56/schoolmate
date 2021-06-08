@@ -89,6 +89,9 @@ header .logo-container {
   font-weight: 800;
   font-size: 16px;
 }
+.main-nav.selected {
+  align-items: center;
+}
 .main-nav-contents {
   display: flex;
   width: 15%;
@@ -96,10 +99,14 @@ header .logo-container {
   justify-content: center;
   align-items: center;
 }
+.main-nav-contents.selected {
+  height: 50%;
+  background-color: var(--yellow);
+  border-radius: 0.5em;
+}
 .transition {
   width: 100%;
   border-radius: 0.5em;
-  transition-duration: 0.2s;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -275,7 +282,7 @@ footer img {
 /* main content */
 .mainContent-wrap {
   position: relative;
-  z-index: -1;
+
   width: 100%;
   height: 500px;
   background-color: var(--gray);
