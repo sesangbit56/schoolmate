@@ -1,19 +1,27 @@
-const postBtn = document.querySelector(".postBtn");
-postBtn.addEventListener("click", () => {
+const searchCategoryValue = () => {
   const category = document.getElementById("category");
   for (let i = 0; i < category.options.length; i++) {
     if (category.options[i].selected == true) {
       var categoryValue = category[i].text;
     }
   }
+  return categoryValue;
+};
+
+const scanOther = () => {
+  if (searchCategoryValue() === "직접 입력") {
+    const otherValue = document.getElementById("otherText").value;
+    return otherValue;
+  } else return searchCategoryValue();
+};
+const transportPostInfo = () => {
   const titleValue = document.getElementById("title-textcontent").value;
   const questionValue = document.getElementById("main-textcontent").value;
   const nameValue = document.getElementById("name").textContent;
-  console.log(categoryValue, titleValue, questionValue, nameValue);
   const data = {
     title: titleValue,
     writer_id: nameValue,
-    category: categoryValue,
+    category: scanOther(),
     main_text: questionValue,
   };
   fetch("/qna/question", {
@@ -33,4 +41,20 @@ postBtn.addEventListener("click", () => {
         location.href = "/qna?list=1";
       }
     });
+};
+
+const postBtn = document.querySelector(".postBtn");
+postBtn.addEventListener("click", () => {
+  transportPostInfo();
+});
+
+const categorySelect = document.getElementById("category");
+categorySelect.addEventListener("change", () => {
+  if (searchCategoryValue() === "직접 입력") {
+    const categoryDom = document.querySelector(".innerHtml");
+    categoryDom.innerHTML = ` <form >
+        <input type="text" id="otherText">
+    </form>
+    `;
+  }
 });
