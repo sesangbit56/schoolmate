@@ -30,7 +30,7 @@ exports.registerControll = (req, res) => {
 
     console.log("done");
     var sql = `SELECT id FROM users WHERE id = "${email}"`;
-    db.query(sql, function (err, rows, fields) {
+    db.query(sql, (err, rows, fields) => {
       if (err) {
         console.log(err);
         return res.status(400).json({ register: false });
@@ -44,7 +44,7 @@ exports.registerControll = (req, res) => {
             `INSERT INTO users (id, name, password, age) VALUES("${email}", "${name}", "${sha256(
               password
             )}", ${parseInt(age)})`,
-            function (err, rows, fields) {
+            (err, rows, fields) => {
               console.log("inserting data into users database.....");
               if (err) {
                 console.log(err);
@@ -134,7 +134,7 @@ exports.userGetControll = (req, res) => {
     }
 
     const sql = `SELECT * FROM users WHERE id = "${email}"`;
-    db.query(sql, function (err, rows, fields) {
+    db.query(sql, (err, rows, fields) => {
       if (err) {
         console.log(err);
         return res.status(400).json({
@@ -167,6 +167,7 @@ exports.questionPostControll = (req, res) => {
     const writer_id = req.body.writer_id || "";
     const category = req.body.category || "";
     const main_text = req.body.main_text || "";
+    // console.log(title, writer_id, category, main_text);
 
     if (
       !title.length ||
@@ -181,7 +182,7 @@ exports.questionPostControll = (req, res) => {
     }
 
     const query = `INSERT INTO questions (title, writer_id, category, timestamp, main_text) VALUES("${title}", "${writer_id}", "${category}", (now()), "${main_text}")`;
-    db.query(query, function (err, rows, fields) {
+    db.query(query, (err, rows, fields) => {
       if (err) {
         return res.status(500).json({
           post: false,
@@ -190,7 +191,7 @@ exports.questionPostControll = (req, res) => {
       } else {
         db.query(
           `select pid from questions order by pid desc limit 1`,
-          function (err, rows, fields) {
+          (err, rows, fields) => {
             if (err) {
               return res.status(500).json({
                 post: false,
@@ -227,7 +228,7 @@ exports.qnaListGetControll = (req, res) => {
   const query = `SELECT * FROM questions ORDER BY pid DESC LIMIT ${
     (page - 1) * 25
   }, 25`;
-  db.query(query, function (err, rows, fields) {
+  db.query(query, (err, rows, fields) => {
     if (err) {
       return res.status(500).json({
         result: "",
@@ -245,38 +246,35 @@ exports.questionDeleteControll = (req, res) => {
   console.log(req.params.pid);
   const pid = req.params.pid;
 
-  db.query(
-    `select * from questions where pid=${pid}`,
-    function (err, rows, fields) {
-      if (err) {
-        return res.status(500).json({
+  db.query(`select * from questions where pid=${pid}`, (err, rows, fields) => {
+    if (err) {
+      return res.status(500).json({
+        delete: false,
+        err: err,
+      });
+    } else {
+      if (!rows.length) {
+        return res.status(401).json({
           delete: false,
-          err: err,
+          err: "post isn't exist",
         });
       } else {
-        if (!rows.length) {
-          return res.status(401).json({
-            delete: false,
-            err: "post isn't exist",
-          });
-        } else {
-          const query = `delete from questions where pid=${pid}`;
-          db.query(query, function (err, rows, fields) {
-            if (err) {
-              return res.status(500).json({
-                delete: false,
-                err: err,
-              });
-            } else {
-              return res.status(200).json({
-                delete: true,
-              });
-            }
-          });
-        }
+        const query = `delete from questions where pid=${pid}`;
+        db.query(query, (err, rows, fields) => {
+          if (err) {
+            return res.status(500).json({
+              delete: false,
+              err: err,
+            });
+          } else {
+            return res.status(200).json({
+              delete: true,
+            });
+          }
+        });
       }
     }
-  );
+  });
 };
 
 exports.questionPutControll = (req, res) => {

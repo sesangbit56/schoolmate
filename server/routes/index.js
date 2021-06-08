@@ -10,6 +10,8 @@ router.get("/sign", services.signRoutes);
 
 router.get("/qna", services.qnaRoutes);
 
+router.get("/qna/newPost", services.newPostRoutes);
+
 /* register api */
 router.post("/register", controller.registerControll);
 

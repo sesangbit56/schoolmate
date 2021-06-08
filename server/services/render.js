@@ -38,3 +38,17 @@ exports.qnaRoutes = async (req, res) => {
     qnaList: qnaList,
   });
 };
+
+exports.newPostRoutes = async (req, res) => {
+  console.log(
+    "newPostRoutes----------------------------------------------------"
+  );
+
+  const status = await tokenCheck.setStatus(req.cookies.sessionId);
+  const name = await tokenCheck.setName(req.cookies.sessionId);
+
+  res.render("newpost", {
+    status: status,
+    name: name,
+  });
+};
