@@ -6,7 +6,6 @@ const questionCheck = require("./questionCheck");
 
 exports.homeRoutes = async (req, res) => {
   console.log("homeRoutes----------------------------------------------------");
-  console.log("   SessionId checking...");
 
   const status = await tokenCheck.setStatus(req.cookies.sessionId);
   const name = await tokenCheck.setName(req.cookies.sessionId);
@@ -25,7 +24,8 @@ exports.signRoutes = (req, res) => {
 
 exports.qnaRoutes = async (req, res) => {
   console.log("qnaRoutes----------------------------------------------------");
-  var parsedUrl = url.parse(req.url);
+
+  const parsedUrl = url.parse(req.url);
   const page = querystring.parse(parsedUrl.query, "&", "=").list;
 
   const status = await tokenCheck.setStatus(req.cookies.sessionId);
