@@ -7,7 +7,7 @@ const db = mysql.createConnection({
 });
 db.connect();
 
-const getQnaCount = function () {
+const getQnaCount = () => {
   return new Promise((resolve) => {
     db.query(`select count(*) as cnt from questions`, (err, rows) => {
       if (err) {
@@ -20,7 +20,7 @@ const getQnaCount = function () {
   });
 };
 
-exports.getQnaList = function (list) {
+exports.getQnaList = (list) => {
   return new Promise((resolve) => {
     getQnaCount().then((count) => {
       if (Math.ceil(count / 25) >= list && list > 0) {
@@ -53,7 +53,7 @@ exports.getQnaList = function (list) {
   });
 };
 
-exports.getRecommendedQuestions = function () {
+exports.getRecommendedQuestions = () => {
   return new Promise((resolve) => {
     db.query(
       `select pid, title, writer_id from questions where pid between 30 and 39`,

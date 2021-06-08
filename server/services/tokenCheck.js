@@ -8,7 +8,7 @@ const db = mysql.createConnection({
 });
 db.connect();
 
-exports.setStatus = function (sessionId) {
+exports.setStatus = (sessionId) => {
   return new Promise((resolve) => {
     if (!sessionId) {
       resolve(false);
@@ -32,7 +32,7 @@ exports.setStatus = function (sessionId) {
   });
 };
 
-exports.setName = function (sessionId) {
+exports.setName = (sessionId) => {
   return new Promise((resolve) => {
     if (!sessionId) {
       resolve("");
