@@ -1,6 +1,6 @@
 const searchCategoryValue = () => {
   const category = document.getElementById("category");
-  for (let i = 0; i < category.options.length; i++) {
+  for (let i = 1; i < category.options.length; i++) {
     if (category.options[i].selected == true) {
       var categoryValue = category[i].text;
     }
