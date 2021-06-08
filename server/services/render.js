@@ -25,17 +25,34 @@ exports.signRoutes = (req, res) => {
 exports.qnaRoutes = async (req, res) => {
   console.log("qnaRoutes----------------------------------------------------");
 
-  const parsedUrl = url.parse(req.url);
-  const page = querystring.parse(parsedUrl.query, "&", "=").list;
+  const parsedUrl = querystring.parse(url.parse(req.url).query, "&", "=");
+  const page = parsedUrl.list;
+  const search = parsedUrl.search;
 
   const status = await tokenCheck.setStatus(req.cookies.sessionId);
   const name = await tokenCheck.setName(req.cookies.sessionId);
-  const qnaList = await questionCheck.getQnaList(page);
+  const qnaList = await questionCheck.getQnaList(page, search);
+  const qnaPageList = await questionCheck.getQnaPageList(page, search);
 
   res.render("qna", {
     status: status,
     name: name,
     qnaList: qnaList,
+    qnaPageList: qnaPageList,
+  });
+};
+
+exports.newPostRoutes = async (req, res) => {
+  console.log(
+    "newPostRoutes----------------------------------------------------"
+  );
+
+  const status = await tokenCheck.setStatus(req.cookies.sessionId);
+  const name = await tokenCheck.setName(req.cookies.sessionId);
+
+  res.render("newpost", {
+    status: status,
+    name: name,
   });
 };
 
