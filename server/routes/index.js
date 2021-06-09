@@ -21,4 +21,8 @@ router.post("/qna/question", controller.questionPostControll);
 
 router.get("/qna/list", controller.qnaListGetControll);
 
+router.delete("/qna/detail/:pid", controller.questionDeleteControll);
+
+router.put("/qna/detail/:pid", controller.questionPutControll);
+
 module.exports = router;
