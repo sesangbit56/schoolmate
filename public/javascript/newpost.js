@@ -50,11 +50,10 @@ postBtn.addEventListener("click", () => {
 
 const categorySelect = document.getElementById("category");
 categorySelect.addEventListener("change", () => {
+  const otherText = document.querySelector(".otherText");
   if (searchCategoryValue() === "직접 입력") {
-    const categoryDom = document.querySelector(".innerHtml");
-    categoryDom.innerHTML = ` <form >
-        <input type="text" id="otherText">
-    </form>
-    `;
+    otherText.classList.add("active");
+  } else {
+    otherText.classList.remove("active");
   }
 });
