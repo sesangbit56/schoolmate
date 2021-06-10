@@ -52,7 +52,6 @@
 }
 .questionDetail-wrap {
   width: 80%;
-  height: 30em;
 }
 .questionDetail-text-group {
   width: 100%;
@@ -64,6 +63,8 @@
 }
 #questionAfter::after {
   content: ":";
+  color: black;
+  margin: 0 0.3em;
 }
 .questionDetailTextarea {
   width: 100%;
@@ -73,9 +74,17 @@
 .name-timestamp-group {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   width: 100%;
   color: var(--darkgray);
   font-family: "NanumSquareRound";
+}
+#writer_id::after {
+  content: "/ ";
+  margin-left: 0.5em;
+}
+#writer_id {
+  margin-right: 0.5em;
 }
 .answerBtn-group {
   display: flex;

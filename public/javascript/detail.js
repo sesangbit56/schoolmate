@@ -35,6 +35,18 @@ fetch("/qna/detail/api", {
     inputData(response);
   });
 
+const questionTextDom = document.querySelector(".questionText");
+const questionTextareaDom = document.querySelector(".questionDetailTextarea");
+const writer_idDom = document.getElementById("writer_id");
+const timestampDom = document.getElementById("timestamp");
 let inputData = (dataObj) => {
+  const timestamp = dataObj.timestamp;
+  const timestampDate = timestamp.split("T")[0];
+  const timestampTime = timestamp.split("T")[1].split(".")[0];
+
+  questionTextDom.innerText = dataObj.title;
+  questionTextareaDom.innerText = dataObj.main_text;
+  writer_idDom.innerText = dataObj.writer_id;
+  timestampDom.innerText = `${timestampDate},  ${timestampTime}`;
   console.log(dataObj);
 };
