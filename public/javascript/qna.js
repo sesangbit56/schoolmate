@@ -14,3 +14,6 @@ const searchBtn = document.querySelector(".searchButton");
 searchBtn.addEventListener("click", () => {
   transportSerachInfo();
 });
+
+const searchData = decodeURI(document.URL.split("=")[1].split("&")[0]);
+searchInput.value = searchData;
