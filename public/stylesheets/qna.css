@@ -158,3 +158,9 @@
 .selected-page .qnaPageList-box {
   color: aliceblue;
 }
+
+@media screen and (max-width: 1050px) {
+  #findPeopleImg {
+    display: none;
+  }
+}

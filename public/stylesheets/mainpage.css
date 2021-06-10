@@ -36,7 +36,7 @@
 .learnText {
   font-family: "NanumSquareRound";
   color: var(--deepblue);
-  font-size: 3.3em;
+  font-size: 3.3vw;
   margin-bottom: 0.3em;
 }
 .newQuesBox {
@@ -77,12 +77,12 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 60%;
+  width: 50vw;
   color: white;
 }
 .success-group img {
-  width: 20%;
-  height: 90%;
+  width: 8vw;
+  height: 13vh;
   margin: 0 3em;
 }
 .bannerText {
@@ -106,7 +106,7 @@
   justify-content: space-around;
   font-family: "Inter", sans-serif;
   font-weight: bold;
-  font-size: 2.5em;
+  font-size: 2.5vw;
 }
 
 .timeText-container {
@@ -188,4 +188,13 @@
 .ranking-wrap {
   width: 100%;
   height: 500px;
+}
+
+@media screen and (max-width: 1050px) {
+  .success-group {
+    justify-content: center;
+  }
+  .success-group img {
+    display: none;
+  }
 }

@@ -285,3 +285,19 @@ footer img {
   flex-direction: column;
   justify-content: space-around;
 }
+
+@media screen and (max-width: 1500px) {
+  header .location-container,
+  header .mail-container {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .main-nav-contents {
+    display: none;
+  }
+  .main-nav {
+    justify-content: flex-end;
+  }
+}
