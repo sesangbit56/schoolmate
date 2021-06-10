@@ -309,3 +309,38 @@ exports.questionPutControll = (req, res) => {
     });
   }
 };
+
+exports.questionGetControll = (req, res) => {
+  const pid = req.body.pid;
+  console.log("got");
+  console.log(req.body.pid);
+
+  db.query(
+    `select * from questions where pid = ${pid}`,
+    (err, rows, fields) => {
+      if (err) {
+        console.log("something went wrong");
+        return res.status(500).json({
+          post: false,
+          msg: "Server error",
+        });
+      } else {
+        if (!rows.length) {
+          console.log("Invalid pid");
+          return res.status(400).json({
+            post: false,
+            msg: "Invalid pid",
+          });
+        } else {
+          return res.status(200).json({
+            post: true,
+            title: rows[0].title,
+            writer_id: rows[0].writer_id,
+            main_text: rows[0].main_text,
+            timestamp: rows[0].timestamp,
+          });
+        }
+      }
+    }
+  );
+};
