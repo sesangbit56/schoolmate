@@ -15,26 +15,25 @@ searchBtn.addEventListener("click", () => {
   transportSerachInfo();
 });
 
-const qnaPid = document.URL.split("/")[5];
-
 const answerBtn = document.querySelector(".answerBtn");
-answerBtn.addEventListener("click", () => {
-  const data = {
-    pid: qnaPid,
-  };
-  fetch("/qna/detail/api", {
-    method: "POST",
-    body: JSON.stringify(data), //
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      datatype: "text",
-    },
-  })
-    .then((res) => res.json())
-    .then((response) => {
-      inputData(response);
-    });
-});
+answerBtn.addEventListener("click", () => {});
+
+const qnaPid = document.URL.split("/")[5];
+const data = {
+  pid: qnaPid,
+};
+fetch("/qna/detail/api", {
+  method: "POST",
+  body: JSON.stringify(data), //
+  headers: {
+    "Content-Type": "application/json; charset=utf-8",
+    datatype: "text",
+  },
+})
+  .then((res) => res.json())
+  .then((response) => {
+    inputData(response);
+  });
 
 let inputData = (dataObj) => {
   console.log(dataObj);
