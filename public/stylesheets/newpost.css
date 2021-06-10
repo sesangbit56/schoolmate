@@ -43,7 +43,7 @@
 }
 .h1Text-box h1 {
   font-family: "Cafe24Ssurround";
-  font-size: 2.5vw;
+  font-size: 2vw;
 }
 .category-group {
   display: flex;
@@ -54,7 +54,7 @@
 }
 .category-text {
   font-family: "NanumSquare";
-  font-size: 2.5vw;
+  font-size: 2vw;
   margin-right: 3vw;
 }
 select {
@@ -111,7 +111,7 @@ select {
 }
 .title-text {
   font-family: "NanumSquare";
-  font-size: 2.5vw;
+  font-size: 2vw;
   margin-bottom: 2vh;
 }
 #title-textcontent {
@@ -135,7 +135,7 @@ select {
 }
 .question-text {
   font-family: "NanumSquare";
-  font-size: 2.5vw;
+  font-size: 2vw;
   margin-right: 2vw;
 }
 .question-text-group label {
