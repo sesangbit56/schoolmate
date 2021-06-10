@@ -10,6 +10,8 @@ router.get("/sign", services.signRoutes);
 
 router.get("/qna", services.qnaRoutes);
 
+router.get("/qna/detail/:pid", services.qnaDetailRoutes);
+
 router.get("/qna/newPost", services.newPostRoutes);
 
 /* register api */

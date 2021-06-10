@@ -1,0 +1,43 @@
+<!-- include header -->
+<%- include('include/_header') %>
+<!-- include header -->
+
+<link rel="stylesheet" href="/stylesheets/detail.css" />
+
+<div class="search-wrap">
+  <div class="search">
+    <input
+      type="text"
+      class="searchTerm"
+      placeholder="What are you looking for?"
+    />
+    <button type="submit" class="searchButton">
+      <i class="fa fa-search"></i>
+    </button>
+  </div>
+</div>
+
+<div class="questionDetail-all-wrap">
+  <div class="questionDetail-wrap">
+    <div class="questionDetail-text-group">
+      <p>
+        <strong id="questionAfter">Question </strong
+        ><strong class="questionText"></strong>
+      </p>
+    </div>
+    <div class="questionDetailTextarea">asdf</div>
+    <div class="name-timestamp-group">
+      <span>asdf</span>/<span id="timestamp">asdf</span>
+    </div>
+    <div class="answerBtn-group">
+      <a class="answerBtn">
+        <p class="answerText">답변 달기</p>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script src="/javascript/detail.js"></script>
+<!-- include footer -->
+<%- include('include/_footer') %>
+<!-- include footer -->

@@ -56,15 +56,15 @@ exports.newPostRoutes = async (req, res) => {
   });
 };
 
-exports.newPostRoutes = async (req, res) => {
+exports.qnaDetailRoutes = async (req, res) => {
   console.log(
-    "newPostRoutes----------------------------------------------------"
+    "qnaDetailRoutes----------------------------------------------------"
   );
 
   const status = await tokenCheck.setStatus(req.cookies.sessionId);
   const name = await tokenCheck.setName(req.cookies.sessionId);
 
-  res.render("newpost", {
+  res.render("detail", {
     status: status,
     name: name,
   });
