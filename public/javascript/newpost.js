@@ -10,7 +10,7 @@ const searchCategoryValue = () => {
 
 const scanOther = () => {
   if (searchCategoryValue() === "직접 입력") {
-    const otherValue = document.getElementById("otherText").value;
+    const otherValue = document.querySelector(".otherText").value;
     return otherValue;
   } else return searchCategoryValue();
 };
