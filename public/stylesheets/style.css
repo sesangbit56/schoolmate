@@ -8,10 +8,10 @@
 :root {
   --yellow: #fdc800;
   --mint: #46d986;
-  --aqua: #11c7c7;
-  --gray: #f0f4f9;
-  --deepblue: #002147;
   --bluemint: #11c7c7;
+  --gray: #f0f4f9;
+  --darkgray: #bdbdbd;
+  --deepblue: #002147;
 }
 * {
   padding: 0;
@@ -25,7 +25,7 @@ a {
 .container {
   width: 100%;
   height: 48px;
-  background-color: var(--aqua);
+  background-color: var(--bluemint);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -84,13 +84,20 @@ header .logo-container {
   width: 50%;
   height: 100%;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
   font-family: "NanumSquareRound";
   font-weight: 800;
   font-size: 16px;
 }
-.transition {
+.main-nav-contents {
+  display: flex;
   width: 15%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.transition {
+  width: 100%;
   border-radius: 0.5em;
   transition-duration: 0.2s;
   display: flex;
@@ -103,13 +110,15 @@ header .logo-container {
   background-color: var(--yellow);
 }
 .sign-box {
-  background-color: var(--aqua);
+  background-color: var(--bluemint);
   width: 115px;
   height: 44px;
   border-radius: 0.4em;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 1.7em;
+  cursor: pointer;
 }
 #signIn {
   color: white;
@@ -117,13 +126,21 @@ header .logo-container {
 
 /* profile css */
 .profile-container {
+  position: relative;
+  z-index: 2;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border-radius: 1em;
   background-color: var(--mint);
   width: 100%;
   height: 70%;
+  margin-top: 1em;
+  border-radius: 1em;
+  transition: all 0.2s ease-out;
+}
+.profile-container.active {
+  border-radius: 1em 1em 0 0;
+  transition: all 0.2s ease-out;
 }
 .profile-img {
   border-radius: 50%;
@@ -136,6 +153,12 @@ header .logo-container {
   display: flex;
   flex-direction: column;
   color: white;
+}
+.flex-container {
+  display: flex;
+}
+.flex-container img {
+  margin-right: 1em;
 }
 #name {
   color: black;
@@ -227,8 +250,7 @@ footer img {
   background-color: white;
   border-radius: 0.5em;
   color: #262626;
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.2s;
   opacity: 0;
   height: auto;
   max-height: 0;
@@ -236,22 +258,308 @@ footer img {
   padding: 0px 10px;
 }
 .panel-container.active {
+  position: relative;
+  z-index: 1;
+  bottom: 0.5em;
   padding: 15px 10px 10px 10px;
   opacity: 1;
-  height: auto;
+  height: 200px;
   max-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 /* mainPage css */
+
+/* main content */
 .mainContent-wrap {
+  position: relative;
+  z-index: -1;
   width: 100%;
-  height: 600px;
+  height: 500px;
+  background-color: var(--gray);
   display: flex;
   align-items: flex-start;
 }
 .mainContent-container {
   width: 100%;
+  height: 70%;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 2em;
+}
+.mainText-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 40%;
+  height: 100%;
+  margin-right: 5em;
+}
+#Become {
+  font-family: "Inter", sans-serif;
+  font-size: 2em;
+  color: var(--deepblue);
+  margin-bottom: 0.3em;
+}
+.learnText {
+  font-family: "NanumSquareRound";
+  color: var(--deepblue);
+  font-size: 3.3em;
+  margin-bottom: 0.3em;
+}
+.newQuesBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10em;
+  height: 3.3em;
+  background-color: white;
+  border: 1px solid var(--darkgray);
+  border-radius: 0.3em;
+  color: var(--deepblue);
+}
+.mainContent-container img {
+  width: 18em;
+  height: 17em;
+}
+
+/* banner */
+.banner-wrap {
+  position: relative;
+  z-index: 1;
+  bottom: 6em;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 18%;
+}
+.banner-container {
+  display: flex;
+  width: 70%;
+  height: 100%;
+  background-color: var(--deepblue);
+  border-radius: 1em;
+}
+.success-group {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 60%;
+  color: white;
+}
+.success-group img {
+  width: 20%;
+  height: 90%;
+  margin: 0 3em;
+}
+.bannerText {
+  font-family: "NanumSquareRound";
+  font-size: 2vw;
+}
+.bannerText strong {
+  color: var(--bluemint);
+}
+.time-group {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+}
+.realtime-container {
+  display: flex;
+  width: 90%;
+  justify-content: space-around;
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  font-size: 2.5em;
+}
+
+.timeText-container {
+  display: flex;
+  justify-content: space-around;
+
+  font-size: 0.5em;
+  font-weight: lighter;
+  width: 99%;
+}
+/* question */
+.question-wrap {
+  width: 100%;
+  height: 1000px;
+  position: relative;
+  z-index: -1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.question-wrap h2 {
+  position: relative;
+  bottom: 5vh;
+  font-size: 2.3em;
+  font-family: "Inter", sans-serif;
+  color: var(--deepblue);
+}
+.grid-container {
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  width: 70%;
+  height: 100%;
+
+  gap: 2vw 2vw;
+}
+.grid-item {
+  border: 1px solid var(--darkgray);
+  border-radius: 0.5em;
+  display: flex;
+  flex-direction: column;
+}
+.image-box {
+  width: 100%;
+  height: 60%;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+  border-bottom: 1px solid var(--darkgray);
+}
+.info-box {
+  width: 100%;
+  height: 40%;
+  display: flex;
+
+  justify-content: center;
+  align-content: center;
+}
+.infoWrap {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+.title {
+  font-family: "Inter", sans-serif;
+  font-size: 1.3em;
+  font-weight: bolder;
+  color: var(--deepblue);
+  margin-bottom: 1vh;
+}
+.userName {
+  font-size: 0.8em;
+  color: var(--darkgray);
+}
+
+/* ranking */
+.ranking-wrap {
+  width: 100%;
+  height: 500px;
+}
+
+/* qnaPage CSS */
+.findQna-wrap {
+  width: 100%;
+  height: 15em;
+  background-color: var(--yellow);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.findQna-container {
+  display: flex;
+  width: 60%;
+  height: 90%;
+  justify-content: space-around;
+  align-items: center;
+}
+#findPeopleImg {
+  width: 15vw;
+  height: 19vh;
+  margin-right: 10vw;
+}
+
+.findText-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 60%;
+  height: 70%;
+}
+.findText-container h2 {
+  color: white;
+  font-size: 1.8em;
+}
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 70%;
+  border: 3px solid var(--bluemint);
+  border-right: none;
+  padding: 5px;
+  height: 36px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9dbfaf;
+}
+
+.searchTerm:focus {
+  color: black;
+}
+
+.searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid var(--bluemint);
+  background: var(--bluemint);
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+.search-wrap {
+  width: 100%;
+}
+.newQna-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.newQna-box h3 {
+  color: white;
+  font-size: 1.5em;
+  margin-left: 1vw;
+}
+
+/* qnalist CSS */
+.qnaLists-wrap {
+  width: 100%;
+  height: 100em;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.qnaLists-container {
+  width: 70%;
+  height: 80%;
+}
+.question-container {
+  display: flex;
+  padding: 0.6vw 0 0.6vw 0;
+  width: 100%;
+  border-bottom: 1px solid var(--darkgray);
+}
+.category {
+  margin-right: 1vw;
 }
