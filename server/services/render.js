@@ -69,3 +69,17 @@ exports.qnaDetailRoutes = async (req, res) => {
     name: name,
   });
 };
+
+exports.myPageRoutes = async (req, res) => {
+  console.log(
+    "myPageRoutes----------------------------------------------------"
+  );
+
+  const status = await tokenCheck.setStatus(req.cookies.sessionId);
+  const name = await tokenCheck.setName(req.cookies.sessionId);
+
+  res.render("mypage", {
+    status: status,
+    name: name,
+  });
+};

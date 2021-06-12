@@ -14,6 +14,8 @@ router.get("/qna/detail/:pid", services.qnaDetailRoutes);
 
 router.get("/qna/newPost", services.newPostRoutes);
 
+router.get("/mypage", services.myPageRoutes);
+
 /* register api */
 router.post("/register", controller.registerControll);
 
