@@ -1,0 +1,13 @@
+.temp-image {
+  max-width: 78%;
+  margin-top: 2em;
+  margin-bottom: 5em;
+  height: auto;
+  display: block;
+}
+
+.temp-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
