@@ -51,26 +51,34 @@
   align-items: flex-start;
 }
 .questionDetail-wrap {
-  width: 80%;
+  width: 73%;
 }
 .questionDetail-text-group {
   width: 100%;
-  height: 5em;
-  border-bottom: 1px solid var(--darkgray);
+  height: 2em;
+  margin-bottom: 1em;
 }
 #questionAfter {
   color: red;
-  font-size: 2em;
+  font-size: 1.8em;
+  font-family: "NanumSquareRound";
 }
 #questionAfter::after {
   content: ":";
   color: black;
   margin: 0 0.3em;
 }
+
+.questionText {
+  font-size: 1.8em;
+  font-family: "NanumSquareRound";
+}
+
 .questionDetailTextarea {
   width: 100%;
-  font-size: 1.5em;
+  font-size: 1.3em;
   margin-bottom: 1em;
+  margin-top: 2em;
 }
 .name-timestamp-group {
   display: flex;
