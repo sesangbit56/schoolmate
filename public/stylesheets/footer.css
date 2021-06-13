@@ -1,0 +1,11 @@
+.footer-container .main-container {
+  display: flex;
+}
+
+.footer-container .navi-container {
+  margin-left: 5em;
+}
+
+.footer-container .navi-content a {
+  font-family: "NanumSquareRound";
+}

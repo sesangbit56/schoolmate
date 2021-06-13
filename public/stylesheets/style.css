@@ -164,6 +164,7 @@ header .logo-container {
   height: 59px;
   background-image: url("https://image.bugsm.co.kr/artist/images/1000/801144/80114466.jpg");
   background-position: center;
+  background-size: 59px 59px;
 }
 .welcome-container {
   display: flex;

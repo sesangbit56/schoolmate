@@ -69,3 +69,31 @@ exports.qnaDetailRoutes = async (req, res) => {
     name: name,
   });
 };
+
+exports.myPageRoutes = async (req, res) => {
+  console.log(
+    "myPageRoutes----------------------------------------------------"
+  );
+
+  const status = await tokenCheck.setStatus(req.cookies.sessionId);
+  const name = await tokenCheck.setName(req.cookies.sessionId);
+
+  res.render("mypage", {
+    status: status,
+    name: name,
+  });
+};
+
+exports.plannerPageRoutes = async (req, res) => {
+  console.log(
+    "plannerPageRoutes----------------------------------------------------"
+  );
+
+  const status = await tokenCheck.setStatus(req.cookies.sessionId);
+  const name = await tokenCheck.setName(req.cookies.sessionId);
+
+  res.render("planner", {
+    status: status,
+    name: name,
+  });
+};
