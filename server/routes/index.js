@@ -41,4 +41,8 @@ router.put("/qna/detail/:pid", controller.questionPutControll);
 
 router.get("/qna/detail/answer/:pid", controller.answerGetControll);
 
+router.post("/qna/detail/answer/:aid/rate", controller.ratePostControll);
+
+router.get("/qna/detail/answer/:aid/rate", controller.rateGetControll);
+
 module.exports = router;
