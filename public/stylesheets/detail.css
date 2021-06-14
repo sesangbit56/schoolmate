@@ -194,6 +194,18 @@
   font-family: "Noto Sansf KR", sans-serif;
   font-size: 1vw;
 }
+/* answer-empty */
+.answer-empty {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10em;
+  border: 1px solid var(--darkgray);
+  border-radius: 1em;
+  color: var(--darkgray);
+  margin-bottom: 5em;
+}
 
 /* mentor Answer */
 .mentor-text {
@@ -291,4 +303,5 @@
   border-radius: 0.3em;
   font-weight: 600;
   margin: 0 5em;
+  cursor: pointer;
 }

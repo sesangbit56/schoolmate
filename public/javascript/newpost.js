@@ -17,10 +17,8 @@ const scanOther = () => {
 const transportPostInfo = () => {
   const titleValue = document.getElementById("title-textcontent").value;
   const questionValue = document.getElementById("main-textcontent").value;
-  const nameValue = document.getElementById("name").textContent;
   const data = {
     title: titleValue,
-    writer_id: nameValue,
     category: scanOther(),
     main_text: questionValue,
   };
@@ -38,7 +36,7 @@ const transportPostInfo = () => {
         alert(response.err, response.err);
       } else if (response.post) {
         alert("글 올리기 성공 !");
-        location.href = "/qna?list=1";
+        location.href = "/qna?search=&list=1";
       }
     });
 };

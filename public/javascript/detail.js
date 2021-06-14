@@ -112,7 +112,7 @@ fetch(`/qna/detail/answer/${qnaPid}`, {
 const answerTextDom = document.getElementsByClassName("answerTextContent");
 const answerWriterIdDom = document.getElementsByClassName("answerWriterId");
 const answerTimestampDom = document.getElementsByClassName("answerTimestamp");
-
+const postStartBox = document.getElementsByClassName("postStar-container");
 let inputAnswerData = (dataObj) => {
   for (let i = 0; i < dataObj.msg.length; i++) {
     const timestamp = new Array();
@@ -125,6 +125,34 @@ let inputAnswerData = (dataObj) => {
     answerWriterIdDom[i].innerText = dataObj.msg[i].writer_id;
     answerTimestampDom[
       i
-    ].innerText = `${timestampDate[i]},  ${timestampTime[i]}`;
+    ].innerText = `${timestampDate[i]}, ${timestampTime[i]}`;
+    postStartBox[i].id = `${dataObj.msg[i].aid}`;
   }
+};
+
+postStartBox[0].addEventListener("click", () => {
+  const starData = {
+    star: checkStar(),
+  };
+  fetch(`/qna/detail/answer/${postStartBox[0].id}/rate`, {
+    method: "POST",
+    body: JSON.stringify(starData),
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      datatype: "text",
+    },
+  })
+    .then((res) => res.json())
+    .then((response) => {
+      console.log(response);
+    });
+});
+
+const checkStar = () => {
+  const genderNodeList = document.getElementsByName("star");
+  genderNodeList.forEach((node) => {
+    if (node.checked) {
+      return node.value;
+    }
+  });
 };
