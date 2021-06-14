@@ -369,21 +369,9 @@ exports.answerPostControll = (req, res) => {
           err: err,
         });
       } else {
-        db.query(
-          `select pid from questions order by pid desc limit 1`,
-          (err, rows, fields) => {
-            if (err) {
-              return res.status(500).json({
-                post: false,
-                err: err,
-              });
-            } else {
-              return res.status(201).json({
-                post: true,
-              });
-            }
-          }
-        );
+        return res.status(201).json({
+          post: true,
+        });
       }
     });
   } catch (e) {
