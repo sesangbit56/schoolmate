@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const querystring = require("querystring");
 
+const testdb = require("./database/database");
+
 const bodyParser = require("body-parser");
 const sha256 = require("sha256");
 const url = require("url");
@@ -348,29 +350,45 @@ exports.questionGetControll = (req, res) => {
 exports.answerPostControll = (req, res) => {
   console.log("got /qna/detail/answer request!");
   try {
+    const sessionId = req.cookies.sessionId;
     const pointer = req.body.pointer || "";
-    const writer_id = req.body.writer_id || "";
     const main_text = req.body.main_text || "";
-    console.log(pointer, writer_id, main_text);
+    console.log(sessionId);
 
-    if (!pointer.length || !writer_id.length || !main_text.length) {
-      return res.status(401).json({
-        post: false,
-        err: "Invalid field values",
-      });
-    }
+    const uid = jwt.verify(sessionId, "ang")["uid"];
+    console.log(uid);
+    let writer_id = "";
 
-    const query = `INSERT INTO answers (pointer, writer_id, timestamp, main_text) VALUES('${pointer}', '${writer_id}', (now()), '${main_text}')`;
-    db.query(query, (err, rows, fields) => {
+    db.query(`select name from users where uid = ${uid}`, (err, rows) => {
       if (err) {
         console.log(err);
-        return res.status(500).json({
-          post: false,
-          err: err,
-        });
       } else {
-        return res.status(201).json({
-          post: true,
+        console.log(rows);
+        console.log(rows[0].name);
+        writer_id = rows[0].name;
+
+        console.log(pointer, writer_id, main_text);
+
+        if (!pointer.length || !writer_id.length || !main_text.length) {
+          return res.status(401).json({
+            post: false,
+            err: "Invalid field values",
+          });
+        }
+
+        const query = `INSERT INTO answers (pointer, writer_id, timestamp, main_text) VALUES('${pointer}', '${writer_id}', (now()), '${main_text}')`;
+        db.query(query, (err, rows, fields) => {
+          if (err) {
+            console.log(err);
+            return res.status(500).json({
+              post: false,
+              err: err,
+            });
+          } else {
+            return res.status(201).json({
+              post: true,
+            });
+          }
         });
       }
     });
@@ -384,18 +402,21 @@ exports.answerGetControll = (req, res) => {
   console.log(pid);
 
   const query = `select * from answers where pointer = ${pid}`;
-  db.query(query, (err, rows) => {
-    if (err) {
-      return res.status(500).json({
-        get: false,
-        msg: err,
-      });
-    } else {
-      console.log(rows);
-      return res.status(200).json({
-        get: true,
-        msg: rows,
-      });
-    }
+  testdb.sendQuery(query).then((result) => {
+    console.log(result);
+    db.query(query, (err, rows) => {
+      if (err) {
+        return res.status(500).json({
+          get: false,
+          msg: err,
+        });
+      } else {
+        console.log(rows);
+        return res.status(200).json({
+          get: true,
+          msg: rows,
+        });
+      }
+    });
   });
 };
