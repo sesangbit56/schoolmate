@@ -1,5 +1,3 @@
-const { json } = require("body-parser");
-
 //search event
 const transportSerachInfo = () => {
   const inputValue = document.querySelector(".searchTerm").value;
