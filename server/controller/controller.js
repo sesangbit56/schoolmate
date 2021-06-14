@@ -390,3 +390,24 @@ exports.answerPostControll = (req, res) => {
     console.log(e);
   }
 };
+
+exports.answerGetControll = (req, res) => {
+  const pid = parseInt(req.params.pid);
+  console.log(pid);
+
+  const query = `select * from answers where pointer = ${pid}`;
+  db.query(query, (err, rows) => {
+    if (err) {
+      return res.status(500).json({
+        get: false,
+        msg: err,
+      });
+    } else {
+      console.log(rows);
+      return res.status(200).json({
+        get: true,
+        msg: rows,
+      });
+    }
+  });
+};

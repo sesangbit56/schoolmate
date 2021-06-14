@@ -39,4 +39,6 @@ router.delete("/qna/detail/:pid", controller.questionDeleteControll);
 
 router.put("/qna/detail/:pid", controller.questionPutControll);
 
+router.get("/qna/detail/answer/:pid", controller.answerGetControll);
+
 module.exports = router;
