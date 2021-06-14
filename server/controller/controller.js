@@ -436,3 +436,81 @@ exports.answerGetControll = (req, res) => {
     });
   });
 };
+
+exports.ratePostControll = (req, res) => {
+  const rate = req.body.rate;
+  const aid = req.params.aid;
+
+  const sessionId = req.cookies.sessionId;
+
+  console.log(sessionId);
+
+  const rater_uid = jwt.verify(sessionId, "ang")["uid"];
+
+  db.query(
+    `select count(*) as cnt from rates where rater_uid = ${rater_uid}`,
+    (err, rows) => {
+      if (err || rows[0].cnt > 0) {
+        return res.status(400).json({
+          post: false,
+          msg: "you picked the wrong house",
+        });
+      } else {
+        const query = `insert into rates(rater_uid, pointer, rating) values(${rater_uid}, ${aid}, ${rate})`;
+
+        db.query(query, (err, rows1) => {
+          if (err) {
+            console.log("something went wrong");
+          } else {
+            db.query(
+              `update answers set rate_count = rate_count + 1 where aid = ${aid}`,
+              (err, rows2) => {
+                if (err) {
+                  console.log("something went wrong 222");
+                } else {
+                  db.query(
+                    `select answers.rate_count, rates.rating from answers join rates on answers.aid = rates.pointer where answers.aid = ${aid}`,
+                    (err, rows3) => {
+                      let sum = 0;
+                      for (let i = 0; i < rows3[0].rate_count; i++) {
+                        sum += rows3[i].rating;
+                      }
+                      db.query(
+                        `update answers set rate = ${
+                          sum / rows3[0].rate_count
+                        } where aid = ${aid}`,
+                        (err, rows4) => {
+                          return res.status(200).json({
+                            post: true,
+                          });
+                        }
+                      );
+                    }
+                  );
+                }
+              }
+            );
+          }
+        });
+      }
+    }
+  );
+};
+
+exports.rateGetControll = (req, res) => {
+  const aid = req.params.aid;
+
+  db.query(`select rate from answers where aid = ${aid}`, (err, rows) => {
+    if (err) {
+      return res.status(500).json({
+        get: false,
+        msg: "Something went wrong...",
+      });
+    } else {
+      return res.status(200).json({
+        get: true,
+        msg: rows[0].rate,
+      });
+    }
+  });
+};
