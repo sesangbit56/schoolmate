@@ -38,11 +38,9 @@ postAnswerBtn.addEventListener("click", () => {
 
 const transportAnswerInfo = () => {
   const answerValue = document.getElementById("answer-textcontent").value;
-  const nameValue = document.getElementById("name").textContent;
   const qnaPid = document.URL.split("/")[5];
   const answerData = {
     main_text: answerValue,
-    writer_id: nameValue,
     pointer: qnaPid,
   };
   fetch("/qna/detail/answer", {
