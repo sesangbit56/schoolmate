@@ -63,10 +63,12 @@ exports.qnaDetailRoutes = async (req, res) => {
 
   const status = await tokenCheck.setStatus(req.cookies.sessionId);
   const name = await tokenCheck.setName(req.cookies.sessionId);
+  const answerCnt = await questionCheck.getAnswerCount(req.params.pid);
 
   res.render("detail", {
     status: status,
     name: name,
+    answerCnt: answerCnt,
   });
 };
 

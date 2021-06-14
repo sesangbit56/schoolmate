@@ -132,3 +132,18 @@ exports.getRecommendedQuestions = () => {
     );
   });
 };
+
+exports.getAnswerCount = (pid) => {
+  return new Promise((resolve) => {
+    db.query(
+      `select count(*) as cnt from answers where pointer = '${pid}'`,
+      (err, rows) => {
+        if (err) {
+          resolve(0);
+        } else {
+          resolve(rows[0].cnt);
+        }
+      }
+    );
+  });
+};
