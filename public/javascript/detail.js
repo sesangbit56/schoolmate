@@ -108,20 +108,25 @@ fetch(`/qna/detail/answer/${qnaPid}`, {
   .then((res) => res.json())
   .then((response) => {
     console.log(response);
+    inputAnswerData(response);
   });
 
 const answerTextDom = document.getElementsByClassName("answerTextContent");
-const answerWriterIdDom = document.getElementsByClassName('answerWriterId"');
+const answerWriterIdDom = document.getElementsByClassName("answerWriterId");
 const answerTimestampDom = document.getElementsByClassName("answerTimestamp");
 
 let inputAnswerData = (dataObj) => {
-  const timestamp = dataObj.timestamp;
-  const timestampDate = timestamp.split("T")[0];
-  const timestampTime = timestamp.split("T")[1].split(".")[0];
-
   for (let i = 0; i < dataObj.msg.length; i++) {
-    answerTextDom[i].innerText = msg[i].main_text;
-    answerWriterIdDom[i].innerText = msg[i].writer_id;
-    answerTimestampDom[i].innerText = `${timestampDate},  ${timestampTime}`;
+    const timestamp = new Array();
+    const timestampDate = new Array();
+    const timestampTime = new Array();
+    timestamp[i] = dataObj.msg[i].timestamp;
+    timestampDate[i] = timestamp[i].split("T")[0];
+    timestampTime[i] = timestamp[i].split("T")[1].split(".")[0];
+    answerTextDom[i].innerText = dataObj.msg[i].main_text;
+    answerWriterIdDom[i].innerText = dataObj.msg[i].writer_id;
+    answerTimestampDom[
+      i
+    ].innerText = `${timestampDate[i]},  ${timestampTime[i]}`;
   }
 };
