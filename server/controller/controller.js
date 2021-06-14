@@ -344,3 +344,70 @@ exports.questionGetControll = (req, res) => {
     }
   );
 };
+
+exports.answerPostControll = (req, res) => {
+  console.log("got /qna/detail/answer request!");
+  try {
+    const pointer = req.body.pointer || "";
+    const writer_id = req.body.writer_id || "";
+    const main_text = req.body.main_text || "";
+    console.log(pointer, writer_id, main_text);
+
+    if (!pointer.length || !writer_id.length || !main_text.length) {
+      return res.status(401).json({
+        post: false,
+        err: "Invalid field values",
+      });
+    }
+
+    const query = `INSERT INTO answers (pointer, writer_id, timestamp, main_text) VALUES('${pointer}', '${writer_id}', (now()), '${main_text}')`;
+    db.query(query, (err, rows, fields) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          post: false,
+          err: err,
+        });
+      } else {
+        db.query(
+          `select pid from questions order by pid desc limit 1`,
+          (err, rows, fields) => {
+            if (err) {
+              return res.status(500).json({
+                post: false,
+                err: err,
+              });
+            } else {
+              return res.status(201).json({
+                post: true,
+              });
+            }
+          }
+        );
+      }
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+exports.answerGetControll = (req, res) => {
+  const pid = parseInt(req.params.pid);
+  console.log(pid);
+
+  const query = `select * from answers where pointer = ${pid}`;
+  db.query(query, (err, rows) => {
+    if (err) {
+      return res.status(500).json({
+        get: false,
+        msg: err,
+      });
+    } else {
+      console.log(rows);
+      return res.status(200).json({
+        get: true,
+        msg: rows,
+      });
+    }
+  });
+};
