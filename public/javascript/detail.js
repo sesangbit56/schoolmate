@@ -54,11 +54,17 @@ const transportAnswerInfo = () => {
     },
   })
     .then((res) => res.json())
-    .then((response) => {});
+    .then((response) => {
+      if (response.post) {
+        location.href = `/qna/detail/${qnaPid}`;
+      } else {
+        console.log("답변 달기에 실패하였습니다");
+      }
+    });
 };
 
 //CSR
-
+// question api
 const qnaPid = document.URL.split("/")[5];
 const data = {
   pid: qnaPid,
@@ -90,3 +96,16 @@ let inputData = (dataObj) => {
   writer_idDom.innerText = dataObj.writer_id;
   timestampDom.innerText = `${timestampDate},  ${timestampTime}`;
 };
+
+// answer api
+fetch(`/qna/detail/answer/${qnaPid}`, {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json; charset=utf-8",
+    datatype: "text",
+  },
+})
+  .then((res) => res.json())
+  .then((response) => {
+    console.log(response);
+  });
