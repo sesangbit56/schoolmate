@@ -62,6 +62,9 @@
       </div>
     </div>
     <h2 class="mentor-text">Mentor Answer</h2>
+    <% if(!answerCnt)  {%>
+    <div class="answer-empty">아직 등록된 답변이 없습니다</div>
+    <% } %>
     <% for (var i = 0; i < answerCnt; i++) { %>
     <div class="mentor-wrap">
       <div class="answerTextContent"></div>
