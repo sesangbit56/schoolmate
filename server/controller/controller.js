@@ -165,48 +165,64 @@ exports.userGetControll = (req, res) => {
 exports.questionPostControll = (req, res) => {
   console.log("got /qna/question request!");
   try {
+    const sessionId = req.cookies.sessionId;
     const title = req.body.title || "";
-    const writer_id = req.body.writer_id || "";
     const category = req.body.category || "";
     const main_text = req.body.main_text || "";
-    // console.log(title, writer_id, category, main_text);
+    console.log(sessionId);
 
-    if (
-      !title.length ||
-      !writer_id.length ||
-      !category.length ||
-      !main_text.length
-    ) {
-      return res.status(401).json({
-        post: false,
-        err: "Invalid field values",
-      });
-    }
+    const uid = jwt.verify(sessionId, "ang")["uid"];
+    console.log(uid);
+    let writer_id = "";
 
-    const query = `INSERT INTO questions (title, writer_id, category, timestamp, main_text) VALUES("${title}", "${writer_id}", "${category}", (now()), "${main_text}")`;
-    db.query(query, (err, rows, fields) => {
+    db.query(`select name from users where uid = ${uid}`, (err, rows) => {
       if (err) {
-        return res.status(500).json({
-          post: false,
-          err: err,
-        });
+        console.log(err);
       } else {
-        db.query(
-          `select pid from questions order by pid desc limit 1`,
-          (err, rows, fields) => {
-            if (err) {
-              return res.status(500).json({
-                post: false,
-                err: err,
-              });
-            } else {
-              return res.status(201).json({
-                post: true,
-                pid: rows[0].pid,
-              });
-            }
+        console.log(rows);
+        console.log(rows[0].name);
+        writer_id = rows[0].name;
+
+        // console.log(title, writer_id, category, main_text);
+
+        if (
+          !title.length ||
+          !writer_id.length ||
+          !category.length ||
+          !main_text.length
+        ) {
+          return res.status(401).json({
+            post: false,
+            err: "Invalid field values",
+          });
+        }
+
+        const query = `INSERT INTO questions (title, writer_id, category, timestamp, main_text) VALUES("${title}", "${writer_id}", "${category}", (now()), "${main_text}")`;
+        db.query(query, (err, rows, fields) => {
+          if (err) {
+            return res.status(500).json({
+              post: false,
+              err: err,
+            });
+          } else {
+            db.query(
+              `select pid from questions order by pid desc limit 1`,
+              (err, rows, fields) => {
+                if (err) {
+                  return res.status(500).json({
+                    post: false,
+                    err: err,
+                  });
+                } else {
+                  return res.status(201).json({
+                    post: true,
+                    pid: rows[0].pid,
+                  });
+                }
+              }
+            );
           }
-        );
+        });
       }
     });
   } catch (e) {
