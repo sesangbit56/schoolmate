@@ -1,3 +1,5 @@
+const { json } = require("body-parser");
+
 //search event
 const transportSerachInfo = () => {
   const inputValue = document.querySelector(".searchTerm").value;
@@ -15,8 +17,49 @@ searchBtn.addEventListener("click", () => {
   transportSerachInfo();
 });
 
-const answerBtn = document.querySelector(".answerBtn");
-answerBtn.addEventListener("click", () => {});
+// active answer wrap
+const activeAnswerBtn = document.querySelector(".answerBtn");
+let statusCheck = false;
+activeAnswerBtn.addEventListener("click", () => {
+  const answerWrap = document.querySelector(".answer-wrap");
+  if (statusCheck === false) {
+    answerWrap.classList.add("active");
+    statusCheck = true;
+  } else if (statusCheck === true) {
+    answerWrap.classList.remove("active");
+    statusCheck = false;
+  }
+});
+
+// post_answer
+
+const postAnswerBtn = document.querySelector(".postAnswerBtn");
+postAnswerBtn.addEventListener("click", () => {
+  transportAnswerInfo();
+});
+
+const transportAnswerInfo = () => {
+  const answerValue = document.getElementById("answer-textcontent").value;
+  const nameValue = document.getElementById("name").textContent;
+  const qnaPid = document.URL.split("/")[5];
+  const answerData = {
+    main_text: answerValue,
+    writer_id: nameValue,
+    pointer: qnaPid,
+  };
+  fetch("/qna/detail/answer", {
+    method: "POST",
+    body: JSON.stringify(answerData), //
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      datatype: "text",
+    },
+  })
+    .then((res) => res.json())
+    .then((response) => {});
+};
+
+//CSR
 
 const qnaPid = document.URL.split("/")[5];
 const data = {
@@ -48,5 +91,4 @@ let inputData = (dataObj) => {
   questionTextareaDom.innerText = dataObj.main_text;
   writer_idDom.innerText = dataObj.writer_id;
   timestampDom.innerText = `${timestampDate},  ${timestampTime}`;
-  console.log(dataObj);
 };
