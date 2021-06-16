@@ -15,9 +15,9 @@ exports.searchQuery = (query) => {
   });
 };
 
-exports.changeQuery = (query) => {
+exports.changeQuery = (query, set) => {
   return new Promise((resolve, reject) => {
-    db.query(query, (err, rows) => {
+    db.query(query, set, (err, rows) => {
       err ? reject(err) : resolve();
     });
   });

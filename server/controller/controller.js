@@ -16,35 +16,26 @@ const db = mysql.createConnection({
 db.connect();
 
 exports.registerControll = async (req, res) => {
-  const email = req.body.email || "";
-  const password = req.body.password || "";
-  const name = req.body.name || "";
-  const age = req.body.age || "";
-
   let status = false;
   let msg = "";
 
+  req.body.password = sha256(req.body.password);
+
   var query = [
-    `SELECT id FROM users WHERE id = "${email}"`,
-    `INSERT INTO users (id, name, password, age) VALUES("${email}", "${name}", "${sha256(
-      password
-    )}", ${parseInt(age)})`,
+    `SELECT id FROM users WHERE id = "${req.body.id}"`,
+    `INSERT INTO users set ?`,
   ];
 
-  if (!email.length || !password.length || !name.length || !age.length) {
-    msg = "Incorrect info";
-  } else {
-    try {
-      if (!(await testdb.searchQuery(query[0])).length) {
-        await testdb.changeQuery(query[1]);
-        status = true;
-        msg = "register completed successfully";
-      } else {
-        msg = "Redundanted id";
-      }
-    } catch (e) {
-      msg = e;
+  try {
+    if (!(await testdb.searchQuery(query[0])).length) {
+      await testdb.changeQuery(query[1], req.body);
+      status = true;
+      msg = "register completed successfully";
+    } else {
+      msg = "Redundanted id";
     }
+  } catch (e) {
+    msg = e;
   }
 
   return res.status(200).json({
