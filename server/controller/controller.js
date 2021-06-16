@@ -15,54 +15,42 @@ const db = mysql.createConnection({
 });
 db.connect();
 
-exports.registerControll = (req, res) => {
-  console.log("got /register request!");
-  try {
-    const email = req.body.email || "";
-    const password = req.body.password || "";
-    const name = req.body.name || "";
-    const age = req.body.age || "";
-    console.log(
-      `email : ${email}, password : ${password}, name : ${name}, age : ${age}`
-    );
+exports.registerControll = async (req, res) => {
+  const email = req.body.email || "";
+  const password = req.body.password || "";
+  const name = req.body.name || "";
+  const age = req.body.age || "";
 
-    if (!email.length || !password.length || !name.length || !age.length) {
-      return res.status(400).json({ err: "Incorrect info" });
-    }
+  let status = false;
+  let msg = "";
 
-    console.log("done");
-    var sql = `SELECT id FROM users WHERE id = "${email}"`;
-    db.query(sql, (err, rows, fields) => {
-      if (err) {
-        console.log(err);
-        return res.status(400).json({ register: false });
+  var query = [
+    `SELECT id FROM users WHERE id = "${email}"`,
+    `INSERT INTO users (id, name, password, age) VALUES("${email}", "${name}", "${sha256(
+      password
+    )}", ${parseInt(age)})`,
+  ];
+
+  if (!email.length || !password.length || !name.length || !age.length) {
+    msg = "Incorrect info";
+  } else {
+    try {
+      if (!(await testdb.searchQuery(query[0])).length) {
+        await testdb.changeQuery(query[1]);
+        status = true;
+        msg = "register completed successfully";
       } else {
-        console.log(`redundanted email is : ${rows}`);
-        if (rows.length) {
-          return res.status(400).json({ email: "Redundanted id" });
-        } else {
-          console.log("Valid email confirmed!");
-          db.query(
-            `INSERT INTO users (id, name, password, age) VALUES("${email}", "${name}", "${sha256(
-              password
-            )}", ${parseInt(age)})`,
-            (err, rows, fields) => {
-              console.log("inserting data into users database.....");
-              if (err) {
-                console.log(err);
-                return res.status(400).json({ register: false });
-              } else {
-                console.log("SUCCESS!");
-                return res.status(201).json({ register: true });
-              }
-            }
-          );
-        }
+        msg = "Redundanted id";
       }
-    });
-  } catch (e) {
-    return res.status(500).json({ err: "Server error" });
+    } catch (e) {
+      msg = e;
+    }
   }
+
+  return res.status(200).json({
+    status: status,
+    msg: msg,
+  });
 };
 
 exports.loginPostControll = (req, res) => {
@@ -205,22 +193,12 @@ exports.questionPostControll = (req, res) => {
               err: err,
             });
           } else {
-            db.query(
-              `select pid from questions order by pid desc limit 1`,
-              (err, rows, fields) => {
-                if (err) {
-                  return res.status(500).json({
-                    post: false,
-                    err: err,
-                  });
-                } else {
-                  return res.status(201).json({
-                    post: true,
-                    pid: rows[0].pid,
-                  });
-                }
-              }
-            );
+            console.log(rows.insertId);
+
+            return res.status(201).json({
+              post: true,
+              pid: rows.insertId,
+            });
           }
         });
       }
@@ -448,7 +426,7 @@ exports.ratePostControll = (req, res) => {
   const rater_uid = jwt.verify(sessionId, "ang")["uid"];
 
   db.query(
-    `select count(*) as cnt from rates where rater_uid = ${rater_uid}`,
+    `select count(*) as cnt from rates where rater_uid = ${rater_uid} and pointer = ${aid}`,
     (err, rows) => {
       if (err || rows[0].cnt > 0) {
         return res.status(400).json({
