@@ -18,7 +18,7 @@ exports.searchQuery = (query) => {
 exports.changeQuery = (query, set) => {
   return new Promise((resolve, reject) => {
     db.query(query, set, (err, rows) => {
-      err ? reject(err) : resolve();
+      err ? reject(err) : resolve(rows);
     });
   });
 };

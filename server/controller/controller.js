@@ -15,27 +15,50 @@ const db = mysql.createConnection({
 });
 db.connect();
 
+const verifyToken = (token) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const uid = jwt.verify(token, "ang").uid;
+      testdb
+        .searchQuery(`select * from users where uid = ${uid}`)
+        .then((result) => {
+          resolve(result[0].name);
+        });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+const createToken = (uid) => {
+  return new Promise((resolve, reject) => {
+    if (uid) {
+      resolve(jwt.sign({ uid: uid }, "ang"));
+    } else {
+      reject("Invalid Id");
+    }
+  });
+};
+
 exports.registerControll = async (req, res) => {
   let status = false;
   let msg = "";
-
-  req.body.password = sha256(req.body.password);
-
-  var query = [
-    `SELECT id FROM users WHERE id = "${req.body.id}"`,
-    `INSERT INTO users set ?`,
-  ];
-
   try {
+    req.body.password = sha256(req.body.password);
+
+    var query = [
+      `SELECT id FROM users WHERE id = "${req.body.id}"`,
+      `INSERT INTO users set ?`,
+    ];
     if (!(await testdb.searchQuery(query[0])).length) {
       await testdb.changeQuery(query[1], req.body);
       status = true;
       msg = "register completed successfully";
     } else {
-      msg = "Redundanted id";
+      throw Error("Redundanted id");
     }
   } catch (e) {
-    msg = e;
+    msg = e.message;
   }
 
   return res.status(200).json({
@@ -44,62 +67,28 @@ exports.registerControll = async (req, res) => {
   });
 };
 
-exports.loginPostControll = (req, res) => {
-  console.log("login POST====================================");
-  console.log(`   got email : ${req.body.email}`);
-  console.log(`   got password : ${req.body.password}`);
-  const sql = `SELECT password, name, uid FROM users WHERE id = "${req.body.email}"`;
-  db.query(sql, (err, rows) => {
-    console.log(`   query result : ` + rows);
-    if (err) {
-      console.log(err);
-      return res.status(500).json({
-        login: false,
-        msg: "sql error",
-      });
+exports.loginPostControll = async (req, res) => {
+  let status = false;
+  let msg = "";
+  try {
+    const query = `SELECT password, name, uid FROM users WHERE id = "${req.body.id}"`;
+    const result = await testdb.searchQuery(query);
+    if (result[0].password === sha256(req.body.password)) {
+      const token = await createToken(result[0].uid);
+      res.cookie("sessionId", token, { maxAge: 36000000 });
+      status = true;
+      msg = "login success";
     } else {
-      if (!rows.length) {
-        return res.status(400).json({
-          login: false,
-          msg: "Invalid Id",
-        });
-      } else if (rows[0].password === sha256(req.body.password)) {
-        let token = jwt.sign({ uid: rows[0].uid }, "ang");
-        res.cookie("sessionId", token, {
-          maxAge: 36000000,
-        });
-        res.status(200).json({
-          login: true,
-          msg: "login SUCCESS",
-        });
-      } else {
-        res.clearCookie("sessionId");
-        return res.status(404).json({
-          login: false,
-          msg: "Invalid password",
-        });
-      }
+      throw Error("Invalid password");
     }
-  });
-};
-
-exports.logoutControll = (req, res) => {
-  console.log("logout GET====================================");
-  if (!req.cookies.sessionId) {
-    console.log("   sessionId Empty...");
-    return res.status(401).json({
-      logout: false,
-      msg: "sessionId is not exist",
-    });
-  } else {
-    const sessionId = req.cookies.sessionId;
-    console.log("   sessionId : " + sessionId);
-    res.clearCookie("sessionId");
-    res.status(200).json({
-      logout: true,
-      msg: "logout SUCCESS",
-    });
+  } catch (e) {
+    msg = e.message;
   }
+
+  return res.status(200).json({
+    status: status,
+    msg: msg,
+  });
 };
 
 exports.userGetControll = (req, res) => {
@@ -141,62 +130,45 @@ exports.userGetControll = (req, res) => {
   }
 };
 
-exports.questionPostControll = (req, res) => {
-  console.log("got /qna/question request!");
-  try {
-    const sessionId = req.cookies.sessionId;
-    const title = req.body.title || "";
-    const category = req.body.category || "";
-    const main_text = req.body.main_text || "";
-    console.log(sessionId);
+exports.logoutControll = (req, res) => {
+  let status = false;
+  let msg = "";
 
-    const uid = jwt.verify(sessionId, "ang")["uid"];
-    console.log(uid);
-    let writer_id = "";
-
-    db.query(`select name from users where uid = ${uid}`, (err, rows) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(rows);
-        console.log(rows[0].name);
-        writer_id = rows[0].name;
-
-        // console.log(title, writer_id, category, main_text);
-
-        if (
-          !title.length ||
-          !writer_id.length ||
-          !category.length ||
-          !main_text.length
-        ) {
-          return res.status(401).json({
-            post: false,
-            err: "Invalid field values",
-          });
-        }
-
-        const query = `INSERT INTO questions (title, writer_id, category, timestamp, main_text) VALUES("${title}", "${writer_id}", "${category}", (now()), "${main_text}")`;
-        db.query(query, (err, rows, fields) => {
-          if (err) {
-            return res.status(500).json({
-              post: false,
-              err: err,
-            });
-          } else {
-            console.log(rows.insertId);
-
-            return res.status(201).json({
-              post: true,
-              pid: rows.insertId,
-            });
-          }
-        });
-      }
-    });
-  } catch (e) {
-    console.log(e);
+  if (!req.cookies.sessionId) {
+    msg = "sessionId is not exist";
+  } else {
+    res.clearCookie("sessionId");
+    status = true;
+    msg = "logout success";
   }
+
+  return res.status(200).json({
+    status: status,
+    msg: msg,
+  });
+};
+
+exports.questionPostControll = async (req, res) => {
+  let status = false;
+  let msg = "";
+  try {
+    req.body.writer_id = await verifyToken(req.cookies.sessionId);
+    req.body.timestamp = mysql.raw("now()");
+
+    console.log(req.body);
+    const query = `INSERT INTO questions SET ?`;
+    const result = await testdb.changeQuery(query, req.body);
+
+    status = true;
+    msg = result.insertId;
+  } catch (e) {
+    msg = e.message;
+  }
+
+  return res.status(200).json({
+    status: status,
+    msg: msg,
+  });
 };
 
 exports.qnaListGetControll = (req, res) => {
