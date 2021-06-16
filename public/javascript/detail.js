@@ -19,16 +19,21 @@ searchBtn.addEventListener("click", () => {
 const activeAnswerBtn = document.querySelector(".answerBtn");
 let statusCheck = false;
 activeAnswerBtn.addEventListener("click", () => {
-  const answerWrap = document.querySelector(".answer-wrap");
-  if (statusCheck === false) {
-    answerWrap.classList.add("active");
-    statusCheck = true;
-  } else if (statusCheck === true) {
-    answerWrap.classList.remove("active");
-    statusCheck = false;
+  const idCookie = document.cookie;
+  if (idCookie) {
+    const answerWrap = document.querySelector(".answer-wrap");
+    if (statusCheck === false) {
+      answerWrap.classList.add("active");
+      statusCheck = true;
+    } else if (statusCheck === true) {
+      answerWrap.classList.remove("active");
+      statusCheck = false;
+    }
+  } else {
+    alert("로그인을 해주세요");
+    location.href = "/sign";
   }
 });
-
 // post_answer
 
 const postAnswerBtn = document.querySelector(".postAnswerBtn");
@@ -168,26 +173,32 @@ fetch(`/qna/detail/answer/${qnaPid}`, {
 
 postStartBox.forEach((node) => {
   node.addEventListener("click", () => {
-    checkStar();
-    const starData = {
-      rate: starRate,
-    };
-    fetch(`/qna/detail/answer/${node.id}/rate`, {
-      method: "POST",
-      body: JSON.stringify(starData),
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        datatype: "text",
-      },
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        if (response.post) {
-          location.href = document.URL;
-        } else {
-          alert("별점은 한 번만 가능합니다");
-        }
-      });
+    const idCookie = document.cookie;
+    if (idCookie) {
+      checkStar();
+      const starData = {
+        rate: starRate,
+      };
+      fetch(`/qna/detail/answer/${node.id}/rate`, {
+        method: "POST",
+        body: JSON.stringify(starData),
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          datatype: "text",
+        },
+      })
+        .then((res) => res.json())
+        .then((response) => {
+          if (response.post) {
+            location.href = document.URL;
+          } else {
+            alert("별점은 한 번만 가능합니다");
+          }
+        });
+    } else {
+      alert("로그인을 해주세요");
+      location.href = "/sign";
+    }
   });
 });
 
