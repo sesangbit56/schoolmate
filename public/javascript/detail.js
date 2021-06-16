@@ -112,10 +112,11 @@ fetch(`/qna/detail/answer/${qnaPid}`, {
     startRadioDom.forEach((nodes) => {
       let starRate = nodes.nextElementSibling.textContent;
       if (starRate > 0) {
-        let nodeRate = parseFloat(starRate).toFixed(1);
-        console.log(nodeRate);
+        let nodeRate = Math.round(parseFloat(starRate).toFixed(1) * 2) / 2;
+        let nodeRate2 = nodeRate.toFixed(1);
+        console.log(nodeRate2);
         for (let i = 0; i < 10; i++) {
-          if (nodes.children[i].childNodes[0].value === nodeRate) {
+          if (nodes.children[i].childNodes[0].value === nodeRate2) {
             nodes.children[i].childNodes[0].checked = true;
           }
         }
@@ -142,7 +143,7 @@ let inputAnswerData = (dataObj) => {
     answerTimestampDom[
       i
     ].innerText = `${timestampDate[i]}, ${timestampTime[i]}`;
-    rateNum[i].innerText = dataObj.msg[i].rate;
+    rateNum[i].innerText = dataObj.msg[i].rate.toFixed(1);
     ratePeopleNum[i].innerText = dataObj.msg[i].rate_count;
     postStartBox[i].id = `${dataObj.msg[i].aid}`;
     startRadioDom[i].className += ` star${dataObj.msg[i].aid}`;

@@ -238,6 +238,7 @@
 /* star CSS */
 .star-group {
   display: flex;
+  align-items: center;
 }
 .blind {
   position: absolute;
@@ -281,7 +282,7 @@
   position: absolute !important;
 }
 .startRadio__box input:checked + .startRadio__img {
-  background-color: #0084ff;
+  background-color: var(--yellow);
 }
 
 .startRadio__img {
@@ -293,6 +294,23 @@
   pointer-events: none;
 }
 /* star CSS */
+.rateNum {
+  color: var(--bluemint);
+  font-size: 2em;
+  font-weight: 600;
+  margin: 0 1em;
+}
+.ratePeopleNum {
+  color: var(--darkgray);
+  font-size: 2em;
+  padding-bottom: 0.1em;
+}
+.ratePeopleNum::before {
+  content: "[";
+}
+.ratePeopleNum::after {
+  content: "]";
+}
 
 .postStar-container {
   width: 10em;
