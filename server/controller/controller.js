@@ -448,7 +448,7 @@ exports.ratePostControll = (req, res) => {
   const rater_uid = jwt.verify(sessionId, "ang")["uid"];
 
   db.query(
-    `select count(*) as cnt from rates where rater_uid = ${rater_uid}`,
+    `select count(*) as cnt from rates where rater_uid = ${rater_uid} and pointer=${aid}`,
     (err, rows) => {
       if (err || rows[0].cnt > 0) {
         return res.status(400).json({

@@ -283,6 +283,7 @@
 .startRadio__box input:checked + .startRadio__img {
   background-color: #0084ff;
 }
+
 .startRadio__img {
   display: block;
   position: absolute;

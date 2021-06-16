@@ -105,14 +105,30 @@ fetch(`/qna/detail/answer/${qnaPid}`, {
 })
   .then((res) => res.json())
   .then((response) => {
-    console.log(response);
     inputAnswerData(response);
+  })
+  .then(() => {
+    // starRate
+    startRadioDom.forEach((nodes) => {
+      let starRate = nodes.nextElementSibling.textContent;
+      if (starRate > 0) {
+        let nodeRate = parseFloat(starRate).toFixed(1);
+        console.log(nodeRate);
+        for (let i = 0; i < 10; i++) {
+          if (nodes.children[i].childNodes[0].value === nodeRate) {
+            nodes.children[i].childNodes[0].checked = true;
+          }
+        }
+      }
+    });
   });
 
 const answerTextDom = document.getElementsByClassName("answerTextContent");
 const answerWriterIdDom = document.getElementsByClassName("answerWriterId");
 const answerTimestampDom = document.getElementsByClassName("answerTimestamp");
-const postStartBox = document.getElementsByClassName("postStar-container");
+const postStartBox = document.querySelectorAll(".postStar-container");
+const rateNum = document.querySelectorAll(".rateNum");
+const ratePeopleNum = document.getElementsByClassName("ratePeopleNum");
 let inputAnswerData = (dataObj) => {
   for (let i = 0; i < dataObj.msg.length; i++) {
     const timestamp = new Array();
@@ -126,33 +142,77 @@ let inputAnswerData = (dataObj) => {
     answerTimestampDom[
       i
     ].innerText = `${timestampDate[i]}, ${timestampTime[i]}`;
+    rateNum[i].innerText = dataObj.msg[i].rate;
+    ratePeopleNum[i].innerText = dataObj.msg[i].rate_count;
     postStartBox[i].id = `${dataObj.msg[i].aid}`;
+    startRadioDom[i].className += ` star${dataObj.msg[i].aid}`;
+    rateNum[i].className += ` star${dataObj.msg[i].aid}`;
   }
 };
 
-postStartBox[0].addEventListener("click", () => {
-  const starData = {
-    star: checkStar(),
-  };
-  fetch(`/qna/detail/answer/${postStartBox[0].id}/rate`, {
-    method: "POST",
-    body: JSON.stringify(starData),
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      datatype: "text",
-    },
-  })
-    .then((res) => res.json())
-    .then((response) => {
-      console.log(response);
-    });
+// fetch  star api
+fetch(`/qna/detail/answer/${qnaPid}`, {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json; charset=utf-8",
+    datatype: "text",
+  },
+})
+  .then((res) => res.json())
+  .then((response) => {
+    inputAnswerData(response);
+  });
+
+//starRate js
+
+postStartBox.forEach((node) => {
+  node.addEventListener("click", () => {
+    checkStar();
+    const starData = {
+      rate: starRate,
+    };
+    fetch(`/qna/detail/answer/${node.id}/rate`, {
+      method: "POST",
+      body: JSON.stringify(starData),
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        datatype: "text",
+      },
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        console.log(response);
+        location.href = document.URL;
+      });
+  });
 });
 
-const checkStar = () => {
-  const genderNodeList = document.getElementsByName("star");
-  genderNodeList.forEach((node) => {
-    if (node.checked) {
-      return node.value;
-    }
-  });
+let checkStar = () => {
+  for (let i = 1; i < startRadioDom.length + 1; i++) {
+    let starNodeList = document.getElementsByName(`${i}`);
+    starNodeList.forEach((node) => {
+      if (node.checked) {
+        starRate = node.value;
+      }
+    });
+  }
 };
+
+//create star Dom
+const startRadioDom = document.querySelectorAll(".startRadio");
+const starlabel = document.createElement("label");
+let starIndex = 0;
+startRadioDom.forEach((node) => {
+  starIndex++;
+  let value = 5.0;
+  for (let i = 0; i < 10; i++) {
+    const starlabel = document.createElement("label");
+    starlabel.classList.add("startRadio__box");
+    starlabel.innerHTML = `<input type="radio" name="${starIndex}" value="${value.toFixed(
+      1
+    )}">\
+    <span class="startRadio__img"><span class="blind"></span></span>`;
+    node.prepend(starlabel);
+    value -= 0.5;
+  }
+});
