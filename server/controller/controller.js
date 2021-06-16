@@ -91,45 +91,6 @@ exports.loginPostControll = async (req, res) => {
   });
 };
 
-exports.userGetControll = (req, res) => {
-  console.log("got /user request!");
-  try {
-    var parsedUrl = url.parse(req.url);
-    const email = querystring.parse(parsedUrl.query, "&", "=").email;
-
-    if (email.length == 0) {
-      return res.status(400).json({
-        err: "Invalid id",
-      });
-    }
-
-    const sql = `SELECT * FROM users WHERE id = "${email}"`;
-    db.query(sql, (err, rows, fields) => {
-      if (err) {
-        console.log(err);
-        return res.status(400).json({
-          err: "Invalid id",
-        });
-      } else {
-        try {
-          return res.status(200).json({
-            uid: rows[0].uid,
-            name: rows[0].name,
-            age: rows[0].age,
-          });
-        } catch (e) {
-          console.log(e);
-          return res.status(500).json({
-            err: "Server error",
-          });
-        }
-      }
-    });
-  } catch (e) {
-    console.log(e);
-  }
-};
-
 exports.logoutControll = (req, res) => {
   let status = false;
   let msg = "";
