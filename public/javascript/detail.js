@@ -182,8 +182,11 @@ postStartBox.forEach((node) => {
     })
       .then((res) => res.json())
       .then((response) => {
-        console.log(response);
-        location.href = document.URL;
+        if (response.post) {
+          location.href = document.URL;
+        } else {
+          alert("별점은 한 번만 가능합니다");
+        }
       });
   });
 });
