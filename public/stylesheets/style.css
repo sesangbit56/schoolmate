@@ -5,13 +5,21 @@
     format("woff");
   font-style: normal;
 }
+@font-face {
+  font-family: "Cafe24Ssurround";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
 :root {
   --yellow: #fdc800;
   --mint: #46d986;
-  --aqua: #11c7c7;
-  --gray: #f0f4f9;
-  --deepblue: #002147;
   --bluemint: #11c7c7;
+  --gray: #f0f4f9;
+  --darkgray: #bdbdbd;
+  --deepblue: #002147;
 }
 * {
   padding: 0;
@@ -25,7 +33,7 @@ a {
 .container {
   width: 100%;
   height: 48px;
-  background-color: var(--aqua);
+  background-color: var(--bluemint);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,26 +43,28 @@ a {
 header .location-container {
   display: flex;
   width: 20%;
-  justify-content: space-around;
+  justify-content: center;
   align-content: center;
 }
 header .location-container img {
   width: 24px;
   height: 24px;
+  margin-right: 1em;
 }
 header .mail-container {
   display: flex;
-  width: 15%;
-  justify-content: space-around;
+  width: 20%;
+  justify-content: center;
   align-items: center;
   margin-left: 5em;
 }
 header .mail-container img {
   width: 24px;
   height: 24px;
+  margin-right: 1em;
 }
 
-header > .main-container {
+header > .mainNav-container {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -64,13 +74,14 @@ header > .main-container {
 }
 header .logo-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  width: 18%;
+  width: 20%;
 }
 .logo-container img {
   width: 66px;
   height: 52px;
+  margin-right: 1em;
 }
 .logo-container a {
   font-family: "Inter", sans-serif;
@@ -81,13 +92,28 @@ header .logo-container {
   width: 50%;
   height: 100%;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
   font-family: "NanumSquareRound";
   font-weight: 800;
   font-size: 16px;
 }
-.transition {
+.main-nav.selected {
+  align-items: center;
+}
+.main-nav-contents {
+  display: flex;
   width: 15%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.main-nav-contents.selected {
+  height: 50%;
+  background-color: var(--yellow);
+  border-radius: 0.5em;
+}
+.transition {
+  width: 100%;
   border-radius: 0.5em;
   transition-duration: 0.2s;
   display: flex;
@@ -100,13 +126,15 @@ header .logo-container {
   background-color: var(--yellow);
 }
 .sign-box {
-  background-color: var(--aqua);
+  background-color: var(--bluemint);
   width: 115px;
   height: 44px;
   border-radius: 0.4em;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 1.7em;
+  cursor: pointer;
 }
 #signIn {
   color: white;
@@ -114,13 +142,21 @@ header .logo-container {
 
 /* profile css */
 .profile-container {
+  position: relative;
+  z-index: 2;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border-radius: 1em;
   background-color: var(--mint);
-  width: 30%;
+  width: 100%;
   height: 70%;
+  margin-top: 1em;
+  border-radius: 1em;
+  transition: all 0.2s ease-out;
+}
+.profile-container.active {
+  border-radius: 1em 1em 0 0;
+  transition: all 0.2s ease-out;
 }
 .profile-img {
   border-radius: 50%;
@@ -128,17 +164,30 @@ header .logo-container {
   height: 59px;
   background-image: url("https://image.bugsm.co.kr/artist/images/1000/801144/80114466.jpg");
   background-position: center;
+  background-size: 59px 59px;
 }
 .welcome-container {
   display: flex;
   flex-direction: column;
   color: white;
 }
+.flex-container {
+  display: flex;
+}
+.flex-container img {
+  margin-right: 1em;
+}
 #name {
   color: black;
 }
+#logout {
+  cursor: pointer;
+}
+.aco-click {
+  cursor: pointer;
+}
 
-/* 김민유 코드 */
+/* footer*/
 .footer-container {
   display: flex;
   width: 100%;
@@ -147,7 +196,8 @@ header .logo-container {
   align-content: flex-end;
 }
 
-.footer-container .main-container {
+.footer-container,
+.mainNav-container {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -204,4 +254,51 @@ footer img {
 
 .navi-content a {
   color: white;
+}
+
+/* accordion css */
+.aco-container {
+  width: 25%;
+}
+.panel-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  background-color: white;
+  border-radius: 0.5em;
+  color: #262626;
+  transition: all 0.2s;
+  opacity: 0;
+  height: auto;
+  max-height: 0;
+  overflow: hidden;
+  padding: 0px 10px;
+}
+.panel-container.active {
+  position: relative;
+  z-index: 1;
+  bottom: 0.5em;
+  padding: 15px 10px 10px 10px;
+  opacity: 1;
+  height: 200px;
+  max-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+@media screen and (max-width: 1500px) {
+  header .location-container,
+  header .mail-container {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .main-nav-contents {
+    display: none;
+  }
+  .main-nav {
+    justify-content: flex-end;
+  }
 }

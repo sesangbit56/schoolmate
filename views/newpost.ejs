@@ -1,0 +1,74 @@
+<!-- include header -->
+<%- include('include/_header') %>
+<!-- include header -->
+<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
+<link rel="stylesheet" href="/stylesheets/newpost.css" />
+
+<div class="postall-wrap">
+  <div class="post-wrap">
+    <div class="post-container">
+      <div class="h1Text-box">
+        <h1>새로운 질문 올리기</h1>
+      </div>
+      <div class="category-group">
+        <p class="category-text">1. 카테고리를 선택해 주세요</p>
+        <form>
+          <select id="category" name="category">
+            <option value="">-- 선택하세요 --</option>
+
+            <option value="0">문법</option>
+            <option value="1">영작</option>
+            <option value="2">듣기</option>
+            <option value="3">회화</option>
+            <option value="4">구문 분석</option>
+            <option value="5">빈칸 추론</option>
+            <option value="6">직접 입력</option>
+          </select>
+        </form>
+        <div class="innerHtml">
+          <form >
+            <input type="text" class="otherText">
+        </form>
+        </div>
+      </div>
+      <div class="title-group">
+        <p class="title-text">2. 제목을 입력해 주세요</p>
+        <textarea
+          name="titleText"
+          id="title-textcontent"
+          cols="60"
+          rows="1"
+          minlength="1"
+          maxlength="70"
+        ></textarea>
+      </div>
+      <div class="question-group">
+        <div class="question-text-group">
+          <p class="question-text">3. 질문을 입력해 주세요</p>
+          <label for="imageFileOpenInput"><p>이미지 업로드</p></label>
+          <input type="file"  name="file" id="imageFileOpenInput" accept="image/*">
+            <p class="insertImage"></p>
+          </input>
+        </div>
+        <textarea
+          name="mainText"
+          id="main-textcontent"
+          cols="30"
+          rows="10"
+          minlength="1"
+          maxlength="30000"
+        ></textarea>
+      </div>
+      <div class="postBtn-group">
+        <a class="postBtn">
+          <p class="postText">등록하기</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/javascript/newpost.js"></script>
+
+<!-- include footer -->
+<%- include('include/_footer') %>
+<!-- include footer -->

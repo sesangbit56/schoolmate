@@ -1,0 +1,96 @@
+<!-- include header -->
+<%- include('include/_header') %>
+<!-- include header -->
+
+<link rel="stylesheet" href="/stylesheets/detail.css" />
+
+<div class="search-wrap">
+  <div class="search">
+    <input
+      type="text"
+      class="searchTerm"
+      placeholder="What are you looking for?"
+    />
+    <button type="submit" class="searchButton">
+      <i class="fa fa-search"></i>
+    </button>
+  </div>
+</div>
+
+<div class="questionDetail-all-wrap">
+  <div class="questionDetail-wrap">
+    <div class="questionDetail-text-group">
+      <p>
+        <strong id="questionAfter">Question</strong
+        ><strong class="questionText"></strong>
+      </p>
+    </div>
+    <hr />
+    <div class="questionDetailTextarea"></div>
+    <div class="name-timestamp-group">
+      <span id="writer_id"></span><span id="timestamp"></span>
+    </div>
+    <div class="answerBtn-group">
+      <a class="answerBtn">
+        <p class="answerText">답변 달기</p>
+      </a>
+    </div>
+    <div class="answer-wrap">
+      <div class="answer-container">
+        <div class="h1Text-box">
+          <h1>답변을 달아주세요</h1>
+          <label for="imageFileOpenInput"><p>이미지 업로드</p></label>
+          <input type="file"  name="file" id="imageFileOpenInput" accept="image/*">
+            <p class="insertImage"></p>
+          </input>
+        </div>
+        <div class="answer-group">
+          <textarea
+            name="mainText"
+            id="answer-textcontent"
+            cols="130"
+            rows="10"
+            minlength="1"
+            maxlength="30000"
+          ></textarea>
+        </div>
+        <div class="postAnswerBtn-group">
+          <a class="postAnswerBtn">
+            <p class="answerText">답변 등록</p>
+          </a>
+        </div>
+      </div>
+    </div>
+    <h2 class="mentor-text">Mentor Answer</h2>
+    <% if(!answerCnt)  {%>
+    <div class="answer-empty">
+      <p>아직 등록된 답변이 없습니다</p>
+    </div>
+    <% } %>
+    <% for (let i = 0; i < answerCnt; i++) { %>
+    <div class="mentor-wrap">
+      <div class="answerTextContent"></div>
+      <div class="answerFooter">
+        <div class="answer_nameTimeGroup">
+          <span class="answerWriterId"></span>
+          <span class="answerTimestamp"></span>
+        </div>
+        <div class="star-group">
+          <div class="startRadio">
+          </div>
+          <div class="rateNum"></div>
+          <div class="ratePeopleNum"></div>
+          <div class="postStar-container" id="">
+            <p>평점 매기기</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %>
+  </div>
+</div>
+
+<script src="/javascript/detail.js"></script>
+<!-- include footer -->
+<%- include('include/_footer') %>
+<!-- include footer -->

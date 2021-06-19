@@ -1,0 +1,204 @@
+:root {
+  --yellow: #fdc800;
+  --mint: #46d986;
+  --bluemint: #11c7c7;
+  --gray: #f0f4f9;
+  --darkgray: #bdbdbd;
+  --deepblue: #002147;
+}
+.postall-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10vh 0;
+}
+
+.post-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  height: 90%;
+  border: 1.5px solid var(--darkgray);
+  border-radius: 2em;
+}
+
+.post-container {
+  display: flex;
+  width: 90%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.h1Text-box {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  padding: 2em 0 0.8em 0;
+  border-bottom: 2px solid var(--darkgray);
+  margin-bottom: 3em;
+}
+.h1Text-box h1 {
+  font-family: "Cafe24Ssurround";
+  font-size: 2vw;
+}
+.category-group {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-content: center;
+  margin-bottom: 2em;
+}
+.category-text {
+  font-family: "NanumSquare";
+  font-size: 2vw;
+  margin-right: 3vw;
+}
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  font-family: "Noto Sansf KR", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+
+  color: #444;
+  background-color: #fff;
+
+  padding: 0.6em;
+  margin-right: 2vw;
+
+  border: 1px solid #aaa;
+  border-radius: 0.5em;
+  box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+}
+.innerHtml {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.otherText {
+  display: none;
+  appearance: none;
+  font-family: "Noto Sansf KR", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+
+  color: #444;
+  background-color: #fff;
+
+  padding: 0.6em;
+  margin-right: 2vw;
+
+  border: 1px solid #aaa;
+  border-radius: 0.5em;
+  box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+}
+.otherText.active {
+  display: flex;
+}
+.title-group {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-bottom: 3vh;
+}
+.title-text {
+  font-family: "NanumSquare";
+  font-size: 2vw;
+  margin-bottom: 2vh;
+}
+#title-textcontent {
+  resize: vertical;
+
+  font-family: "Noto Sansf KR", sans-serif;
+  font-size: 1.8vw;
+}
+.question-group {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-content: flex-start;
+}
+.question-text-group {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 2vh;
+}
+.question-text {
+  font-family: "NanumSquare";
+  font-size: 2vw;
+  margin-right: 2vw;
+}
+.question-text-group label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em 0.75em;
+  color: black;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #fdfdfd;
+  cursor: pointer;
+  border: 1px solid var(--yellow);
+  height: 2em;
+  border-radius: 0.25em;
+}
+
+.question-text-group input[type="file"] {
+  /* 파일 필드 숨기기 */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+#main-textcontent {
+  resize: vertical;
+
+  font-family: "Noto Sansf KR", sans-serif;
+  font-size: 1vw;
+}
+
+.postBtn-group {
+  display: flex;
+  width: 100%;
+  height: 15vh;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.postBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10vw;
+  height: 7vh;
+  cursor: pointer;
+  border: 1px solid var(--bluemint);
+  border-radius: 0.5em;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 1050px) {
+  .category-group {
+    flex-direction: column;
+  }
+  .question-text-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
