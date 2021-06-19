@@ -7,14 +7,18 @@ const db = mysql.createConnection({
 });
 db.connect();
 
-exports.sendQuery = (query) => {
-  return new Promise((resolve) => {
-    db.query(query, (err, rows, fields) => {
-      if (err) {
-        resolve(err);
-      } else {
-        resolve(rows);
-      }
+exports.searchQuery = (query) => {
+  return new Promise((resolve, reject) => {
+    db.query(query, (err, rows) => {
+      err ? reject(err) : resolve(rows);
+    });
+  });
+};
+
+exports.changeQuery = (query, set) => {
+  return new Promise((resolve, reject) => {
+    db.query(query, set, (err, rows) => {
+      err ? reject(err) : resolve(rows);
     });
   });
 };

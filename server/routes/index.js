@@ -23,8 +23,6 @@ router.post("/register", controller.registerControll);
 
 router.post("/login", controller.loginPostControll);
 
-router.get("/user", controller.userGetControll);
-
 router.get("/logout", controller.logoutControll);
 
 router.post("/qna/question", controller.questionPostControll);
