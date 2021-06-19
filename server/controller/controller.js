@@ -351,6 +351,7 @@ exports.ratePostControll = (req, res) => {
 
   db.query(
     `select count(*) as cnt from rates where rater_uid = ${rater_uid} and pointer = ${aid}`,
+
     (err, rows) => {
       if (err || rows[0].cnt > 0) {
         return res.status(400).json({

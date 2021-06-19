@@ -49,6 +49,7 @@
   border: 1px solid var(--darkgray);
   border-radius: 0.3em;
   color: var(--deepblue);
+  cursor: pointer;
 }
 .mainContent-container img {
   width: 18em;
