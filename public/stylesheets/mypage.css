@@ -1,0 +1,66 @@
+.mypage-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.mypage-container {
+  margin-top: 3em;
+  width: 78%;
+  height: 100%;
+  border-radius: 3em;
+  margin-bottom: 7em;
+  -webkit-box-shadow: 4px 4px 5px 0px rgba(161, 161, 161, 0.79);
+  box-shadow: 4px 4px 5px 0px rgba(161, 161, 161, 0.79);
+  background-color: rgb(250, 250, 250);
+}
+
+.mypage-detail-container {
+  display: flex;
+  margin: 3em 4.5em 3em 4.5em;
+}
+
+.mypage-detail-text-container {
+  display: flex;
+  margin-left: 3.5em;
+  margin-top: 0.6em;
+  padding-top: 0.6em;
+  flex-direction: column;
+}
+
+.mypage-detail-box {
+  font-size: 2em;
+  margin: 0.3em 0em 0.5em 0em;
+}
+
+#mypage-detail-image-box {
+  width: 10em;
+  height: 10em;
+  background-image: url("https://image.bugsm.co.kr/artist/images/1000/801144/80114466.jpg");
+  background-size: 10em 10em;
+  border-radius: 50%;
+}
+
+.menu-wrapper {
+  margin: 5em 4.5em 3em 4.5em;
+  padding-left: 0.8em;
+}
+
+.menu-detail {
+  font-size: 1.5em;
+  margin: 0.7em 0em 0.7em 0em;
+  display: flex;
+  align-items: center;
+  font-family: "NanumSquareRound";
+}
+
+.menu-detail-before {
+  margin-right: 0.7em;
+  height: 1.1em;
+  background-color: grey;
+  width: 0.3em;
+}
+
+#ranking-box {
+  color: rgb(255, 174, 0);
+}

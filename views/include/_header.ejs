@@ -11,7 +11,7 @@
       integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
       crossorigin="anonymous"
     />
-    <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/footer.css" />
   </head>
 
   <body>
@@ -22,13 +22,13 @@
           <p>경기도 안산시 단원구 와동 사세충열로 94</p>
         </div>
         <div class="mail-container">
-          <img src="images/icon-email.png" alt="" />
+          <img src="/images/icon-email.png" alt="" />
           <p>jungin7612@dimigo.hs.kr</p>
         </div>
       </nav>
       <div class="mainNav-container">
         <div class="logo-container">
-          <img src="images/icon-logo.png" alt="" />
+          <img src="/images/icon-logo.png" alt="" />
           <a href="/">Schoolmate</a>
         </div>
         <nav class="main-nav">
@@ -38,7 +38,7 @@
             </a>
           </div>
           <div class="main-nav-contents connectQna">
-            <a href="/qna" class="transition hover-class">
+            <a href="/qna?search=&list=1" class="transition hover-class">
               <p>게시판</p>
             </a>
           </div>
@@ -47,8 +47,8 @@
               <p>문제 풀기</p>
             </a>
           </div>
-          <div class="main-nav-contents">
-            <a href="#" class="transition hover-class">
+          <div class="main-nav-contents connectPlanner">
+            <a href="/planner" class="transition hover-class">
               <p>학습 플래너</p>
             </a>
           </div>
@@ -58,7 +58,7 @@
               <div class="profile-img"></div>
               <div class="welcome-container">
                 <p>안녕하세요.</p>
-                <p><span id="name"><%= name %> </span>학생</p>
+                <p><span id="name"><%= name %></span> 학생</p>
               </div>
               <i class="fas fa-bars aco-click"></i>
             </div>
@@ -73,7 +73,7 @@
               </div>
               <div class="myPage flex-container">
                 <img src="/images/home.png" alt="" />
-                <a href="#">My page</a>
+                <a href="/mypage">My page</a>
               </div>
               <div class="logout flex-container">
                 <img src="/images/exit.png" alt="" />
@@ -88,6 +88,5 @@
         </nav>
       </div>
     </header>
-    <script src="/javascript/index.js"></script>
   </body>
 </html>

@@ -1,0 +1,40 @@
+<!-- include header -->
+<%- include('include/_header') %>
+<!-- include header -->
+
+<link rel="stylesheet" href="/stylesheets/mypage.css" />
+
+<div class="mypage-wrapper">
+  <div class="mypage-container">
+    <div class="mypage-detail-container">
+      <img id="mypage-detail-image-box"></img>
+      <div class="mypage-detail-text-container">
+        <p class="mypage-detail-box">
+          전국 <strong id="ranking-box">4342</strong>위
+        </p>
+        <p class="mypage-detail-box">
+          <strong id="name-box"><%= name %></strong> 학생
+        </p>
+      </div>
+    </div>
+    <div class="menu-wrapper">
+      <div class="menu-container">
+        <div class="menu-detail">
+          <div class="menu-detail-before"></div>
+          모의고사 성적관리
+        </div>
+        <div class="menu-detail">
+          <div class="menu-detail-before"></div>
+          내신 성적 관리
+        </div>
+        <div class="menu-detail">
+          <div class="menu-detail-before"></div>
+          랭킹 세부 사항
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- include footer -->
+<%- include('include/_footer') %>
+<!-- include footer -->

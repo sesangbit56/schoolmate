@@ -1,87 +1,101 @@
-const jwt = require("jsonwebtoken");
 const querystring = require("querystring");
-const mysql = require("mysql");
-const db = mysql.createConnection({
-  host: "158.247.222.53",
-  user: "dev",
-  password: "13975",
-  database: "schoolmate",
-});
-db.connect();
+const url = require("url");
 
-exports.homeRoutes = (req, res) => {
+const tokenCheck = require("./tokenCheck");
+const questionCheck = require("./questionCheck");
+
+exports.homeRoutes = async (req, res) => {
   console.log("homeRoutes----------------------------------------------------");
-  console.log("   SessionId checking...");
-  var questions = undefined;
-  db.query(
-    `select pid, title, writer_id from questions where pid between 30 and 39`,
-    (err, rows, fields) => {
-      console.log(rows);
-      if (err) {
-        res.render("index", {
-          status: false,
-          name: "",
-        });
-      } else {
-        questions = JSON.parse(JSON.stringify(rows));
-        console.log(questions);
-        if (!req.cookies.sessionId) {
-          console.log("   !!!!SessionId is empty!!!!");
-          res.render("index", {
-            status: false,
-            name: "",
-            questions: questions,
-          });
-        } else {
-          try {
-            var decodedToken = jwt.verify(req.cookies.sessionId, "ang")["uid"];
-          } catch (err) {
-            //when sessionId is not valid
-            console.log(err);
-            res.clearCookie("sessionId");
-            res.render("index", {
-              status: false,
-              name: "",
-              questions: questions,
-            });
-          }
-          console.log(decodedToken);
-          const query = `select * from users where uid = ${decodedToken}`;
 
-          db.query(query, (err, rows, fields) => {
-            if (err) {
-              console.log(err);
-              res.clearCookie("sessionId");
-              res.render("index", {
-                status: false,
-                name: "",
-                questions: questions,
-              });
-            } else {
-              if (!rows.length) {
-                console.log("   !!!!SessionId is Invalid!!!!");
-                res.clearCookie("sessionId");
-                res.render("index", {
-                  status: false,
-                  name: "",
-                  questions: questions,
-                });
-              } else {
-                console.log("   SessionId Confirmed!");
-                res.render("index", {
-                  status: true,
-                  name: rows[0].name,
-                  questions: questions,
-                });
-              }
-            }
-          });
-        }
-      }
-    }
-  );
+  const status = await tokenCheck.setStatus(req.cookies.sessionId);
+  const name = await tokenCheck.setName(req.cookies.sessionId);
+  const questions = await questionCheck.getRecommendedQuestions();
+
+  res.render("index", {
+    status: status,
+    name: name,
+    questions: questions,
+  });
 };
 
 exports.signRoutes = (req, res) => {
   res.render("sign");
+};
+
+exports.qnaRoutes = async (req, res) => {
+  console.log("qnaRoutes----------------------------------------------------");
+
+  const parsedUrl = querystring.parse(url.parse(req.url).query, "&", "=");
+  const page = parsedUrl.list;
+  const search = parsedUrl.search;
+
+  const status = await tokenCheck.setStatus(req.cookies.sessionId);
+  const name = await tokenCheck.setName(req.cookies.sessionId);
+  const qnaList = await questionCheck.getQnaList(page, search);
+  const qnaPageList = await questionCheck.getQnaPageList(page, search);
+
+  res.render("qna", {
+    status: status,
+    name: name,
+    qnaList: qnaList,
+    qnaPageList: qnaPageList,
+  });
+};
+
+exports.newPostRoutes = async (req, res) => {
+  console.log(
+    "newPostRoutes----------------------------------------------------"
+  );
+
+  const status = await tokenCheck.setStatus(req.cookies.sessionId);
+  const name = await tokenCheck.setName(req.cookies.sessionId);
+
+  res.render("newpost", {
+    status: status,
+    name: name,
+  });
+};
+
+exports.qnaDetailRoutes = async (req, res) => {
+  console.log(
+    "qnaDetailRoutes----------------------------------------------------"
+  );
+
+  const status = await tokenCheck.setStatus(req.cookies.sessionId);
+  const name = await tokenCheck.setName(req.cookies.sessionId);
+  const answerCnt = await questionCheck.getAnswerCount(req.params.pid);
+
+  res.render("detail", {
+    status: status,
+    name: name,
+    answerCnt: answerCnt,
+  });
+};
+
+exports.myPageRoutes = async (req, res) => {
+  console.log(
+    "myPageRoutes----------------------------------------------------"
+  );
+
+  const status = await tokenCheck.setStatus(req.cookies.sessionId);
+  const name = await tokenCheck.setName(req.cookies.sessionId);
+
+  res.render("mypage", {
+    status: status,
+    name: name,
+  });
+};
+
+exports.plannerPageRoutes = async (req, res) => {
+  console.log(
+    "plannerPageRoutes----------------------------------------------------"
+  );
+
+  const status = await tokenCheck.setStatus(req.cookies.sessionId);
+  const name = await tokenCheck.setName(req.cookies.sessionId);
+
+  res.render("planner", {
+    status: status,
+    name: name,
+  });
 };

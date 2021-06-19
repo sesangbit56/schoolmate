@@ -1,6 +1,9 @@
 <!-- include header -->
 <%- include('include/_header') %>
 <!-- include header -->
+
+<link rel="stylesheet" href="/stylesheets/mainpage.css" />
+
 <div id="all-wrap">
   <div class="mainContent-wrap">
     <div class="mainContent-container">
@@ -10,9 +13,9 @@
           <p>Learn English Online</p>
           <p>Build up your skills.</p>
         </div>
-        <div class="newQuesBox">
+        <a class="newQuesBox">
           <p>새 질문 올리기</p>
-        </div>
+        </a>
       </div>
       <img src="/images/Analytic.png" alt="image" />
     </div>
@@ -20,7 +23,7 @@
   <div class="banner-wrap">
     <div class="banner-container">
       <div class="success-group">
-        <img src="/images/success.png" alt="" />
+        <img src="/images/Success.png" alt="" />
         <p class="bannerText">아직 <strong>아무도 풀지 못한</strong> 문제</p>
       </div>
       <div class="time-group">
@@ -43,7 +46,7 @@
     </div>
   </div>
   <div class="question-wrap">
-    <h2>Top featured Question</h2>
+    <h2>오늘의 핫 질문</h2>
     <div class="grid-container">
       <div class="grid-item first">
         <div class="image-box"></div>
@@ -130,6 +133,8 @@
   </div>
   <div class="ranking-wrap"></div>
 </div>
+<script src="/javascript/mainpage.js"></script>
+
 <!-- include footer -->
 <%- include('include/_footer') %>
 <!-- include footer -->

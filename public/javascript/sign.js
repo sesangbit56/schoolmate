@@ -1,7 +1,6 @@
 //login Post
-const loginBtn = document.querySelector(".login-button");
 
-loginBtn.addEventListener("click", () => {
+const transportLoginInfo = () => {
   const email = document.querySelector(".email").value;
   const pwd = document.querySelector(".password").value;
   const url = "/login";
@@ -23,6 +22,20 @@ loginBtn.addEventListener("click", () => {
       }
     })
     .catch((error) => console.error("Error:", error));
+};
+
+const emailInput = document.querySelector(".email");
+const pwdInput = document.querySelector(".password");
+
+emailInput,
+  pwdInput.addEventListener("keyup", () => {
+    if (window.event.keyCode == 13) {
+      transportLoginInfo();
+    }
+  });
+const loginBtn = document.querySelector(".login-button");
+loginBtn.addEventListener("click", () => {
+  transportLoginInfo();
 });
 
 //signup Post

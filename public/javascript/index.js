@@ -34,5 +34,6 @@ logoutBtn.addEventListener("click", () => {
       });
   } else {
     acoContent.classList.remove("active");
+    profile.classList.remove("active");
   }
 });
